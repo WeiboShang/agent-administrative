@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 // Shared across workflows so the framing and the column labels stay identical everywhere
 // this appears (WF2 scheduling, WF3 expense). The story is always the same: what the model
 // read from the source (text or receipt image) → what deterministic code resolved & checked
-// it into (CLAUDE.md §4.4). Keep the two labels here the single source of truth — don't
+// it into (docs/workflow_design.md). Keep the two labels here the single source of truth — don't
 // re-spell them per page.
 const GRID = 'grid grid-cols-[64px_minmax(90px,auto)_20px_1fr] gap-x-3'
 

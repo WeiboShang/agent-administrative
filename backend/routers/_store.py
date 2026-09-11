@@ -8,7 +8,7 @@ booked meetings, submitted claims and triaged threads survive a server restart. 
 are seeded only when the store is EMPTY — re-seeding on every start would stack a second copy
 of the demo world on top of the user's own work.
 
-Evaluation is unaffected and stays reproducible (CLAUDE.md §3.4): every eval path constructs
+Evaluation is unaffected and stays reproducible (docs/workflow_design.md): every eval path constructs
 its own fresh `RecordStore(":memory:")` and seeds that, so no eval reads or mutates this
 store. Set `RECORD_STORE_PATH=:memory:` to get the old reset-on-restart behaviour.
 """

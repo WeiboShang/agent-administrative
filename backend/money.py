@@ -14,7 +14,7 @@ limits are GBP-denominated (`fixtures/org.py`), so a claim is converted before a
 comparison, and reporting aggregates in GBP. This is the *functional currency* amount.
 
 Rates are a **frozen snapshot**, not a live feed: a live feed would make evaluation runs
-unreproducible and would put a third-party service in the evaluated core (CLAUDE.md §3).
+unreproducible and would put a third-party service in the evaluated core (docs/workflow_design.md).
 Conversions are also frozen **onto each record at submit time** (`workflows/expense.py`), so
 editing this table never restates a claim that has already been submitted — which is the
 IAS 21 treatment (a foreign-currency transaction is recorded at the rate on its date and is

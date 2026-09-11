@@ -1,7 +1,7 @@
-"""WF3 vision extraction — receipt image → structured fields (Llama 4 Scout via Groq).
+"""WF3 vision extraction: receipt image to structured fields via Groq.
 
-The one multimodal step (CLAUDE.md §4.5): the LLM reads what is *printed on* the receipt;
-all validation/policy is downstream CODE (workflows/expense.py). The Groq client is built
+The LLM reads what is printed on the receipt; downstream code owns validation and policy.
+The Groq client is built
 **lazily**, so the pure `_parse_receipt_json` / `receipt_to_fields` helpers import and test
 without a key; only `extract_receipt` (the live call) needs `GROQ_API_KEY` + an image.
 """
@@ -57,7 +57,7 @@ _CATEGORY_ALIASES = {
 
 # Coarse, category-based business_purpose suggestion (a receipt never states the purpose).
 # Deliberately generic so the human still has to refine it — M5 edit-distance reveals
-# whether they refine or rubber-stamp (docs/wf3_expense_design.md §D).
+# whether they refine or rubber-stamp (docs/workflow_design.md).
 _PURPOSE_BY_CATEGORY = {
     "meals": "Business meal", "travel": "Business travel",
     "accommodation": "Business accommodation", "supplies": "Office supplies",
@@ -108,7 +108,7 @@ def receipt_to_fields(vision: dict[str, Any], *, employee_name: str,
 
     Only fields the receipt can supply are filled. ``employee_name`` comes from context;
     ``business_purpose`` is left absent unless supplied, so it surfaces as a
-    required-missing field the human must fill (docs/wf3_expense_design.md §D).
+    required-missing field the human must fill (docs/workflow_design.md).
 
     Every value is passed through ``normalise.clean`` first: on a degraded receipt the
     model answers "null"/"N/A"/"" rather than a JSON null (seen live on real CORD
@@ -134,7 +134,8 @@ def receipt_to_fields(vision: dict[str, Any], *, employee_name: str,
     )
     # Carry the model's own line items + tax through as *evidence* (not required fields the
     # human must fill): the arithmetic self-consistency check (policy.check_arithmetic,
-    # docs/wf3_expense_design.md §L.1) proves the numbers add up. Kept out of the registry's
+    # The deterministic arithmetic check proves the numbers add up. These stay outside the
+    # registry's
     # required set, so they never surface as missing.
     fields["line_items"] = _clean_line_items(vision.get("line_items"))
     fields["tax"] = clean_number(vision.get("tax"))

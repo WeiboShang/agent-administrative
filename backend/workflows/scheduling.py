@@ -1,10 +1,10 @@
 """WF2 (meeting scheduling) — deterministic core on the stateful events store.
 
-Implements the CODE half of the workflow (docs/wf2_scheduling_design.md): relative-date
+Implements the CODE half of the workflow (docs/workflow_design.md): relative-date
 resolution (native rules + dateparser fallback), participant resolution, conflict/policy
 checks against everything already booked, gate-checked execution, and ``.ics`` export.
 The LLM only produces the raw ``extraction`` dict fed in here; everything in this module
-is deterministic so it is reproducible and testable (CLAUDE.md §4.4).
+is deterministic so it is reproducible and testable (docs/workflow_design.md).
 """
 import re
 from datetime import datetime, timedelta
@@ -148,7 +148,7 @@ def add_minutes(time_str: str, minutes: int) -> str:
     return (datetime.strptime(time_str, "%H:%M") + timedelta(minutes=minutes)).strftime("%H:%M")
 
 
-# ── WF2 v2: stateful calendar (events store + policy engine, docs/wf2_scheduling_design.md) ──
+# ── WF2 v2: stateful calendar (events store + policy engine, docs/workflow_design.md) ──
 def _flag_json(f: policy.Flag) -> dict[str, str]:
     return {"rule": f.rule, "severity": f.severity, "message": f.message}
 
@@ -329,13 +329,13 @@ def execute_scheduling(event: dict, store: RecordStore, *, decision: str,
 
     The event arrives from the client (the human edited it), so the *time window* is
     recomputed here from ``time`` + ``duration_minutes`` rather than trusting the incoming
-    ``start``/``end`` — code owns the arithmetic (CLAUDE.md §4.4), and a hand-edited time
+    ``start``/``end`` — code owns the arithmetic (docs/workflow_design.md), and a hand-edited time
     with a stale ``end`` would otherwise book a negative-length meeting.
 
     ``calendar_backend`` overrides the ``config.CALENDAR_BACKEND`` factory. It exists so a
     caller can be *structurally* barred from a real calendar rather than trusting an env var:
     the M2 task-success harness injects a mock, which is what keeps evaluation on the mock
-    path (CLAUDE.md §3.4) even when the interactive app is configured for the Google demo.
+    path (docs/workflow_design.md) even when the interactive app is configured for the Google demo.
     """
     changed = changed_fields or []
     names = event.get("participant_names") or event.get("participants") or []

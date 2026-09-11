@@ -1,4 +1,4 @@
-"""Synthetic WF2 (scheduling) data generator — reverse generation (data_strategy.md §3).
+"""Synthetic WF2 (scheduling) data generator — reverse generation (evaluation.md).
 
 Sample a gold meeting in CODE, render it as a natural-ish message applying a difficulty
 tier, and store ``(input_text, gold, meta)``. Because the gold is fixed *before* the text
@@ -6,7 +6,7 @@ exists, every case is labelled by construction (no annotation step).
 
 Realisation here is **template-based and deterministic** (no LLM) so the generator runs
 and is fully testable offline. An LLM realiser can be plugged in later for higher realism
-(data_strategy.md §3.2 step 2) — the gold + meta contract stays identical.
+(see docs/evaluation.md); the gold and metadata contract stays identical.
 
 Dates are rendered only in forms the deterministic resolver handles (ISO, or
 ``next <weekday>``), so the round-trip back-check (§3.2 step 3) is exact. Richer date
@@ -189,7 +189,7 @@ def make_dataset(n_per_tier: int = 10, seed: int = 0) -> list[Case]:
 
 
 def back_check(case: Case) -> bool:
-    """Self-consistency / round-trip check (data_strategy.md §3.2 step 3).
+    """Self-consistency and round-trip check for a generated case.
 
     schedule_meeting: every gold participant resolves in the directory, the gold date is
     valid ISO, and the date phrase used in the text resolves (against the gold ``now``)

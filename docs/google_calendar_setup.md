@@ -3,7 +3,7 @@
 One-time setup for the current interactive WF2 backend: after human approval, a scheduling
 mutation is stored locally and synchronised through the Google Calendar API to a dedicated
 project account. The code fallback is `mock` when no local setting is present, and formal
-evaluation always injects that mock explicitly (`docs/wf2_scheduling_design.md §18`).
+evaluation always injects that mock explicitly (`docs/workflow_design.md`).
 
 **Before you start — two ground rules that keep this low-risk:**
 - Use a **brand-new Google account created only for this project.** Never your real/daily one:

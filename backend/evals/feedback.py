@@ -3,7 +3,7 @@
 The gate already records every dismissal; nothing ever read them back. Injecting a few as
 few-shot negatives turns the human's decisions from *evaluation data* into a *control
 signal*, without changing the architecture: this is prompt-layer conditioning, not
-persistent agent memory (CLAUDE.md §4.1 descoped the latter with the LangGraph prototype).
+persistent agent memory (docs/workflow_design.md descoped the latter with the LangGraph prototype).
 The agent still only proposes and the human still decides — the proposals just get better.
 
 Two conditions are measured, because a single one cannot tell learning from memorising:

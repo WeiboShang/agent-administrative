@@ -1,8 +1,8 @@
-"""Deterministic policy / checks engine (workflow_design.md §2.2).
+"""Deterministic policy / checks engine (docs/workflow_design.md).
 
-Flags with a reason; **never auto-rejects** — the human decides (CLAUDE.md §2). Each flag
+Flags with a reason; **never auto-rejects** — the human decides (docs/workflow_design.md). Each flag
 is ``soft`` (surface it; the human may override) or ``hard`` (blocks the write even on
-approve). All logic is CODE, not the LLM (CLAUDE.md §4.4). Budget/quota *consumption* is
+approve). All logic is CODE, not the LLM (docs/workflow_design.md). Budget/quota *consumption* is
 derived from approved records in the store, so the store is the single source of truth.
 """
 from __future__ import annotations
@@ -18,7 +18,7 @@ from ..backends.records import RecordStore
 from ..fixtures import org
 from ..money import gbp_of, to_gbp
 
-# ── config (tunable; see workflow_design.md §2.3) ──
+# ── config (tunable; see docs/workflow_design.md) ──
 # All GBP-denominated: a foreign-currency claim is converted (backend/money.py) before any
 # comparison against these.
 PER_DIEM: dict[str, float] = {
@@ -27,7 +27,7 @@ PER_DIEM: dict[str, float] = {
 }  # "travel" has no cap
 WORKING_HOURS = ("09:00", "18:00")
 
-# Arithmetic self-consistency (docs/wf3_expense_design.md §L.1). Tolerances absorb rounding;
+# Arithmetic self-consistency (see docs/workflow_design.md). Tolerances absorb rounding;
 # a real dropped/duplicated line moves the sum well past them.
 ARITHMETIC_TOLERANCE = 0.02          # absolute floor (pennies of rounding)
 ARITHMETIC_REL_TOLERANCE = 0.005     # or 0.5% of the total, whichever is larger
@@ -121,7 +121,7 @@ def check_arithmetic(fields: dict[str, Any]) -> list[Flag]:
     """The LLM read the numbers; deterministic code proves they add up.
 
     Currency-agnostic (every value is in the receipt's own currency, so no FX). **Soft only**
-    (CLAUDE.md §2): a mismatch is usually a model misread — a dropped line — which is exactly
+    (docs/workflow_design.md): a mismatch is usually a model misread — a dropped line — which is exactly
     the case the human verifies against the image; occasionally a genuinely odd receipt.
     """
     flags: list[Flag] = []

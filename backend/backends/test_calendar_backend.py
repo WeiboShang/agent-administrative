@@ -280,7 +280,7 @@ def test_smart_provider_failure_preserves_remote_ids_for_retry(monkeypatch):
 
 
 def test_evaluation_harness_never_reaches_the_calendar_backend():
-    """Reproducibility invariant (CLAUDE.md §3.4): the WF2 scorer scores validate_scheduling
+    """Reproducibility invariant (docs/workflow_design.md): the WF2 scorer scores validate_scheduling
     directly and must never call execute_scheduling, which is the only booking path."""
     import inspect
 

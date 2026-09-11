@@ -1,11 +1,11 @@
 """Synthetic organisation fixture — single source of truth for the fictional world.
 
 Used by the mock backends (DirectoryBackend, conflict checks) AND the synthetic data
-generators (docs/data_strategy.md §3), so a generated message mentioning "Bob" always
+generators (docs/evaluation.md), so a generated message mentioning "Bob" always
 resolves to a real directory entry. Extended for the v2 re-scope
-(docs/workflow_design.md §2.3): departments, budgets, quotas, and seed records.
+(docs/workflow_design.md): departments, budgets, quotas, and seed records.
 
-All data is fictional (CLAUDE.md §3.1); emails are @example.com.
+All data is fictional (docs/workflow_design.md); emails are @example.com.
 
 Design note: budget/quota *consumption* is DERIVED from approved records in the store,
 not tracked here — these constants are only the allocations. The seed records below are
@@ -64,7 +64,7 @@ BUSY_SLOTS: list[BusySlot] = [
 # Those dates are pinned to the EVALUATION epoch and must never float: scheduling_data.py
 # builds its gold from GEN_NOW = 2026-06-30, and scheduling_score._expected_conflict compares
 # that gold against these very slots. Moving them would make evaluation irreproducible
-# (CLAUDE.md §3.4).
+# (docs/workflow_design.md).
 #
 # The LIVE workspace needs the opposite. Once the app runs on a real clock, a clash pinned to
 # July 2026 is just a past meeting, and the flagship demo ("next Tuesday at 14:00" clashing

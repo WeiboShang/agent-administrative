@@ -1,2 +1,0 @@
-{"at": "2026-07-14T02:58:55", "name": "cord", "model": "meta-llama/llama-4-scout-17b-16e-instruct", "params": {"n": 40, "runner": "cli"}, "result": {"n": 40, "correct": 33, "amount_accuracy": 0.825}}
-{"at": "2026-07-16T06:52:07", "name": "cord", "model": "qwen/qwen3.6-27b", "params": {"n": 40, "runner": "cli"}, "result": {"n": 40, "correct": 27, "amount_accuracy": 0.675}}

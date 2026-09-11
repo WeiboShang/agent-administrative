@@ -1,1 +1,0 @@
-{"at": "2026-07-16T20:01:24", "name": "ami", "model": "llama-3.3-70b-versatile", "params": {"n": 20, "dataset": "pszemraj/qmsum-cleaned", "max_turns": 50, "runner": "cli"}, "result": {"n": 20, "correct_abstention": 0.9, "spurious_leave_request": 0, "spurious_schedule_meeting": 2, "max_turns": 50}}

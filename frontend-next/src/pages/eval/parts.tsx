@@ -41,7 +41,7 @@ export function fmtAt(at?: string) {
  * button · provenance (model, judge, n, when) · the result.
  *
  * Provenance is not decoration — a number without its generator/judge and n cannot be read
- * (CLAUDE.md §4.5: always report which judge produced a number).
+ * (docs/workflow_design.md: always report which judge produced a number).
  */
 export function EvalRunner({
   name,

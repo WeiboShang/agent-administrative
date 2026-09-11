@@ -1,11 +1,9 @@
-"""O4 grounded content generation — decision notes (CLAUDE.md §5 "content generation").
+"""Grounded content generation for decision notes.
 
-Absorbs the scope PDF's email/document-drafting workflow (O4) as a gate *feature*: after
-an approve/reject decision, the system drafts the confirmation/rejection note **from the
-decided record + its policy flags** (never from the original conversation), the human
-edits it, and the draft is only ever **stored** (`store_draft` semantics — nothing is
-sent). Grounding in the record makes the draft directly evaluable: the fact sheet passed
-to the LLM is the faithfulness source (evals/content_score.py).
+After an approve or reject decision, the system drafts a note from the decided record and
+its policy flags, never from the original conversation. The human can edit it, and the note
+is stored as a draft rather than sent. The same fact sheet is the source used by the
+faithfulness evaluator in ``evals/content_score.py``.
 """
 from __future__ import annotations
 
@@ -56,7 +54,7 @@ def draft_decision_note(fields: dict[str, Any], decision: str, *,
 
 def store_note(store: RecordStore, *, claim_id: str, note: dict[str, Any],
                decision: str) -> Record:
-    """Persist the draft (status='draft' — never sent; CLAUDE.md §2/§3)."""
+    """Persist the note with ``draft`` status; it is never sent."""
     return store.create("submissions", "decision_note", {
         "claim_id": claim_id, "decision": decision,
         "subject": note["subject"], "body": note["body"],

@@ -1,4 +1,4 @@
-"""Synthetic receipt-image generator (docs/wf3_expense_design.md §G · data_strategy §3).
+"""Synthetic receipt-image generator (docs/workflow_design.md).
 
 Reverse generation extended to vision: sample a gold receipt in CODE → render it as an
 IMAGE (Pillow) → (at eval time) the vision model extracts → compare to gold. Because we

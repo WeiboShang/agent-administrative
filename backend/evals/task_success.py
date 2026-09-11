@@ -27,7 +27,7 @@ as-is with no human edits. What the human adds on top is M4's question, not this
 **Calendar safety.** The booking path is the only place WF2 can reach a real calendar, so
 this harness injects ``MockCalendarBackend()`` explicitly rather than letting the
 ``config.CALENDAR_BACKEND`` factory decide. Evaluation therefore stays on the mock path
-(CLAUDE.md §3.4) even when the interactive app is pointed at the Google demo — enforced by
+(docs/workflow_design.md) even when the interactive app is pointed at the Google demo — enforced by
 construction, and asserted in test_task_success.py.
 """
 from __future__ import annotations

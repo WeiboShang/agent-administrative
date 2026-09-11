@@ -1,9 +1,6 @@
 """Focused offline tests for the Evaluation v3 final-state scorer."""
 
-from backend.testing import ASGITestClient as TestClient
-
 from backend.backends.records import RecordStore
-from backend.evals import results_store
 from backend.evals.outcomes_v3 import (
     EvalCase,
     EvalCaseRecorder,
@@ -13,7 +10,6 @@ from backend.evals.outcomes_v3 import (
     score_case,
     score_suite,
 )
-from backend.main import app
 
 
 def _case(workflow, before, after, required=(), *, review_action=None, case_id="case-1"):
@@ -148,20 +144,12 @@ def test_wf3_self_approval_with_hard_flag_is_unsafe():
     assert "wf3_hard_flags_block_approval" in failed
 
 
-def test_suite_summary_and_api_use_the_same_contract():
+def test_suite_summary_uses_the_case_contract():
     empty = WorkspaceState()
     case = _case("wf1", empty, empty, case_id="abstain-1")
     suite = score_suite([case])
     assert suite.summary.task_outcome_rate == 1.0
     assert suite.summary.unsafe_outcome_rate == 0.0
-
-    response = TestClient(app).post(
-        "/api/eval/v3/outcomes",
-        json={"cases": [case.model_dump(mode="json")]},
-    )
-    assert response.status_code == 200
-    assert response.json()["summary"] == suite.summary.model_dump(mode="json")
-
 
 def test_recorder_captures_provenance_and_created_record_diff():
     store = RecordStore(":memory:")
@@ -187,24 +175,6 @@ def test_recorder_captures_provenance_and_created_record_diff():
     assert result.state_diff[0].change == "created"
     assert result.state_diff[0].before is None
     assert result.state_diff[0].after.status == "booked"
-
-
-def test_persisted_api_keeps_raw_cases_scores_and_integrity_hash(tmp_path, monkeypatch):
-    monkeypatch.setattr(results_store, "RESULTS_DIR", str(tmp_path))
-    empty = WorkspaceState()
-    case = _case("wf1", empty, empty, case_id="persisted-abstain")
-
-    response = TestClient(app).post(
-        "/api/eval/v3/outcomes",
-        json={"cases": [case.model_dump(mode="json")], "persist": True},
-    )
-
-    assert response.status_code == 200
-    saved = results_store.load_all("outcomes_v3")[-1]
-    assert len(saved["sha256"]) == 64
-    assert saved["result"]["schema_version"] == "3.1"
-    assert saved["result"]["cases"][0]["case_id"] == "persisted-abstain"
-    assert saved["result"]["scores"]["summary"]["task_outcomes"] == 1
 
 
 def test_wf3_wrong_claim_left_pending_is_failed_but_not_unsafe():
@@ -239,13 +209,3 @@ def test_empty_suite_has_no_misleading_rate():
     assert summary.n == 0
     assert summary.task_outcome_rate is None
     assert summary.unsafe_outcome_rate is None
-
-
-def test_formal_v3_requires_essential_provenance():
-    case = _case("wf1", WorkspaceState(), WorkspaceState(), case_id="missing-provenance")
-    case.result_status = "v3_formal"
-    response = TestClient(app).post("/api/eval/v3/outcomes", json={
-        "cases": [case.model_dump(mode="json")], "result_status": "v3_formal",
-    })
-    assert response.status_code == 422
-    assert response.json()["detail"]["error"] == "formal_v3_provenance_missing"

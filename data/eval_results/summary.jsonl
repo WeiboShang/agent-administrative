@@ -1,1 +1,0 @@
-{"at": "2026-07-14T01:46:57", "name": "summary", "model": "llama-3.3-70b-versatile", "params": {"n": 15, "judge": "gemini"}, "result": {"n": 15, "judge": "gemini-2.5-flash", "generator": "llama-3.3-70b-versatile", "coverage": 1.0, "faithfulness": {"mean_faithfulness": 0.847, "unsupported_rate": 0.467, "n": 15}}}

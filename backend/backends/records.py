@@ -1,11 +1,11 @@
-"""In-process record stores backing the three workspace domains (workflow_design.md §2.1).
+"""In-process record stores backing the three workspace domains (docs/workflow_design.md).
 
 One SQLite database (in-memory by default) with a single ``records`` table; the three
 logical stores — ``threads`` (WF1), ``events`` (WF2), ``submissions`` (WF3) — are
 distinguished by the ``store`` column, and each record's domain-specific fields live in a
 JSON ``data`` blob (the "unified envelope + JSON fields" pattern).
 
-This is a **real local SQLite tool with synthetic data** (CLAUDE.md §3), not a throwaway
+This is a **real local SQLite tool with synthetic data** (docs/workflow_design.md), not a throwaway
 mock: approvals persist here and drive future validations. It is **resettable/seedable**
 so evaluation is reproducible (``reset()`` also restarts the id counter). The connection
 allows cross-thread use (FastAPI runs handlers in a threadpool) guarded by a lock.

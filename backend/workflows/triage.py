@@ -1,11 +1,11 @@
-"""WF1 triage / intake — deterministic core (docs/wf1_triage_design.md).
+"""WF1 triage / intake — deterministic core (docs/workflow_design.md).
 
 The LLM reads a multi-party thread and proposes ``detected_actions``; this module
 validates/normalises them and, on the human's Route, dispatches an action into its
 downstream workflow as a draft (WF2 schedule / WF3 expense), passing the reviewed
 reviewed fields and provenance straight through (the hand-off rule: no re-extraction).
 WF1 never approves or executes the downstream action. Everything here is deterministic
-CODE (CLAUDE.md §4.4).
+CODE (docs/workflow_design.md).
 """
 import re
 from datetime import datetime
@@ -106,7 +106,7 @@ def _flags_json(flags: list[policy.Flag]) -> list[dict[str, str]]:
 # anchors on the detailed plan and reports the action; booking a cancelled meeting is a
 # real-world harm. This is the WF1 analogue of WF3's arithmetic self-consistency: the LLM
 # reads the fields correctly, deterministic CODE checks them against what the thread says
-# LATER. Soft only — the human decides (CLAUDE.md §2).
+# LATER. Soft only — the human decides (docs/workflow_design.md).
 #
 # Cues are split by strength to keep false positives down: a STRONG cue is unambiguous on
 # its own; a WEAK cue only counts with a meeting noun in the same line. "Change of plan" and

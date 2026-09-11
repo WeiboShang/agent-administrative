@@ -1,8 +1,6 @@
 """Focused tests for Review Value and Review Effort."""
 
 import pytest
-from backend.testing import ASGITestClient as TestClient
-
 from backend.evals.outcomes_v3 import (
     EvalCase,
     GoldFinalState,
@@ -11,7 +9,6 @@ from backend.evals.outcomes_v3 import (
     score_suite,
 )
 from backend.evals.review_metrics_v3 import evaluate_review_metrics
-from backend.main import app
 
 
 def _review_case(index: int, *, draft: bool, final: bool) -> EvalCase:
@@ -74,17 +71,3 @@ def test_review_effort_reports_median_and_iqr_without_composite_score():
 def test_review_metrics_reject_misaligned_cases_and_scores():
     with pytest.raises(ValueError, match="must align"):
         evaluate_review_metrics([_review_case(1, draft=True, final=True)], [])
-
-
-def test_paired_api_labels_scripted_review_and_returns_review_metrics():
-    response = TestClient(app).post(
-        "/api/eval/v3/paired",
-        json={"limit_per_workflow": 1, "persist": False},
-    )
-    assert response.status_code == 200
-    body = response.json()
-    assert body["review_value"]["n"] == 6
-    assert body["review_value"]["reviewer_types"] == {"scripted": 6}
-    assert body["review_effort"]["interactions"]["n"] == 6
-    assert body["scripted_review_analysis"]["n"] == 6
-    assert "not human evidence" in body["scripted_review_analysis"]["evidence_boundary"]

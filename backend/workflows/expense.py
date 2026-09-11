@@ -1,6 +1,6 @@
-"""WF3 expense claim — deterministic core (docs/wf3_expense_design.md).
+"""WF3 expense claim — deterministic core (docs/workflow_design.md).
 
-The vision LLM extracts receipt fields (part 2); everything here is CODE (CLAUDE.md §4.4):
+The vision LLM extracts receipt fields (part 2); everything here is CODE (docs/workflow_design.md):
 schema validation via the registry, missing-field detection, the policy engine, and the
 write to the submissions store. **Approve is gated** — a hard policy flag or a missing
 required field blocks the write even on approve. Budget/quota consumption is derived from

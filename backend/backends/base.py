@@ -1,4 +1,4 @@
-"""Backend interfaces (CLAUDE.md §4.2): swap-boundary between workflows and the world.
+"""Backend interfaces (docs/workflow_design.md): swap-boundary between workflows and the world.
 
 In the v2 re-scope the workflows' side effects all go through the stateful
 :class:`~backend.backends.records.RecordStore` (threads / events / submissions), so the

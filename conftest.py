@@ -7,7 +7,7 @@ imports the FastAPI app, and the shared store is built at import time — so wit
 (it did: a run left six "Sync" meetings behind before this file existed).
 
 Forcing (not defaulting) the in-memory store keeps tests isolated and reproducible, and
-matches CLAUDE.md §3.4 — evaluation and tests never depend on accumulated local state.
+matches docs/workflow_design.md — evaluation and tests never depend on accumulated local state.
 pytest imports conftest.py before collecting test modules, which is what makes this work.
 """
 import os

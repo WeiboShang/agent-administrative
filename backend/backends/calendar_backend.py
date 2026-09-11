@@ -1,7 +1,7 @@
-"""Calendar backend interface (CLAUDE.md §4.2 pattern, `wf2_scheduling_design.md §K`).
+"""Calendar backend interface for approved WF2 side effects.
 
 The current interactive WF2 deployment uses Google Calendar, but it is never part of the
-evaluated core (CLAUDE.md §3.4: evaluation always injects a mock). `execute_scheduling`
+evaluated core: evaluation always injects a mock. `execute_scheduling`
 calls whichever backend `config.CALENDAR_BACKEND` selects; ``mock`` remains the safe code
 fallback for a checkout without local configuration.
 

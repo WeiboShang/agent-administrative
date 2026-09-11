@@ -1,4 +1,4 @@
-"""Mock backend implementations (CLAUDE.md §3.2/§4.2) — self-contained, no real services.
+"""Mock backend implementations (docs/workflow_design.md) — self-contained, no real services.
 
 Only the directory remains as an ABC-backed mock (see base.py); workflow side effects go
 through the stateful RecordStore.

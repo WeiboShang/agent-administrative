@@ -23,13 +23,13 @@ VISION_MODEL: str = "qwen/qwen3.6-27b"
 # is what an actual workspace has to do. Set to ":memory:" for the old reset-on-restart
 # behaviour (handy for a pristine demo or screenshots).
 #
-# This does NOT weaken evaluation reproducibility (CLAUDE.md §3.4): every eval path builds
+# This does NOT weaken evaluation reproducibility (docs/workflow_design.md): every eval path builds
 # its own fresh `RecordStore(":memory:")` and seeds it — none of them touch this store, and
 # nothing in the codebase calls `reset()` on it. The fixtures are seeded into the file only
 # when it is empty, so a restart never stacks a second copy on top of your data.
 RECORD_STORE_PATH: str = os.environ.get("RECORD_STORE_PATH", "data/workspace.db")
 
-# WF2 interactive calendar backend (docs/wf2_scheduling_design.md §18): "google" is used by
+# WF2 interactive calendar backend (docs/workflow_design.md): "google" is used by
 # the current local deployment; "mock" remains the safe repository fallback when the setting
 # is absent. The evaluation harness never reads this switch and injects its mock explicitly.
 # This flag affects only human-approved interactive scheduling routes.

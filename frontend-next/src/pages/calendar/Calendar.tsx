@@ -27,7 +27,7 @@ type CalView = 'week' | 'list'
 
 const FIELDS = ['title', 'date', 'time', 'duration_minutes', 'location', 'mode', 'agenda'] as const
 
-// Synthetic examples (CLAUDE.md §3.1 — no real data), one per difficulty the evaluation
+// Synthetic examples (docs/workflow_design.md — no real data), one per difficulty the evaluation
 // harness tiers on (scheduling_data.py: clean / conflict / missing / ambiguous / noise /
 // out_of_scope), so the demo mirrors what is measured.
 const EXAMPLES: { label: string; text: string }[] = [

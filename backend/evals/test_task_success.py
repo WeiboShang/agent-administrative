@@ -9,7 +9,7 @@ from backend.evals.scheduling_score import gold_as_extraction as sched_gold
 from backend.evals.task_success import evaluate_expense_task, evaluate_scheduling_task
 
 
-# ── the reproducibility invariant (CLAUDE.md §3.4) ──
+# ── the reproducibility invariant (docs/workflow_design.md) ──
 
 def test_harness_injects_a_mock_calendar_and_never_uses_the_factory():
     """This harness DOES call execute_scheduling (the booking path), so — unlike the WF2

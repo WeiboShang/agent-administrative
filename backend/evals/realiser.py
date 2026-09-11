@@ -1,6 +1,6 @@
 """LLM realiser — paraphrase template-rendered eval cases into varied natural text.
 
-data_strategy.md §3.2 step 2: the gold is fixed *before* realisation, an LLM only varies
+The gold is fixed *before* realisation; an LLM only varies
 the surface form, and a deterministic **back-check** verifies the facts survived (person
 names, the date expression verbatim, HH:MM times). A failed rewrite falls back to the
 template text (recorded in ``meta.realised``), so the dataset never silently loses gold

@@ -1,6 +1,6 @@
 """WF3 expense schema — required/optional fields for evidence review.
 
-The central design artifact of WF3 (workflow_design.md §3): the field sets are defined in
+The central design artifact of WF3 (docs/workflow_design.md): the field sets are defined in
 CODE, not decided by the LLM. Values match prompts.py FORM_PREFILL_PROMPT and the
 ``FormType`` literal in schemas/drafts.py.
 """
@@ -19,7 +19,7 @@ FORM_SCHEMAS: dict[str, FormSchema] = {
     "expense_claim": FormSchema(
         # v2 (multimodal): vendor comes from the receipt; business_purpose never appears on
         # a receipt so it is deliberately required → surfaces as missing until the human
-        # fills it (docs/wf3_expense_design.md §D).
+        # fills it (docs/workflow_design.md).
         required=("employee_name", "vendor", "date", "amount", "currency", "category",
                   "business_purpose"),
         optional=("department", "payment_method", "line_items", "tax"),

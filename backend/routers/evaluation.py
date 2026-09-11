@@ -11,7 +11,7 @@ from collections import Counter
 from typing import Any, Optional
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from .. import money
 from ..agent.extract import llm_extract
@@ -33,10 +33,6 @@ from ..evals.triage_data import POSITIONS, make_position_case, make_position_dat
 from ..evals.triage_data import make_dataset as make_triage_dataset
 from ..evals.triage_score import evaluate as triage_evaluate
 from ..evals.triage_score import evaluate_position, llm_triage_extract, summary_coverage
-from ..evals.outcomes_v3 import EvalCase, ResultStatus, score_suite
-from ..evals.review_metrics_v3 import evaluate_review_metrics
-from ..evals.outcome_adapters_v3 import build_frozen_suite, build_paired_suite
-from ..evals.outcome_adapters_v34 import build_paired_suite as build_v34_paired_suite
 from ..fixtures import org
 from ._store import store
 
@@ -523,164 +519,6 @@ async def scheduling_eval(req: SchedEvalRequest) -> dict[str, Any]:
         model=req.model or LLM_MODEL,
         params={"n": req.n, "dataset": req.dataset},
     )
-
-
-class OutcomeEvalRequest(BaseModel):
-    """Already-executed immutable cases scored with the Evaluation v3 contract."""
-
-    cases: list[EvalCase]
-    persist: bool = False
-    result_status: ResultStatus = "legacy_pilot"
-
-
-@router.post("/v3/outcomes")
-async def outcome_eval(req: OutcomeEvalRequest) -> dict[str, Any]:
-    """Score final mock-workspace state without execution, model calls or side effects."""
-    if req.result_status in {
-        "v3_4_formal", "v3_4_1_formal", "v3_4_2_formal", "v3_4_3_formal"
-    }:
-        raise HTTPException(
-            status_code=403,
-            detail="formal V3.4.x results can only be written by a sealed formal runner",
-        )
-    if any(case.result_status != req.result_status for case in req.cases):
-        raise HTTPException(
-            status_code=422, detail="request and case result_status must match"
-        )
-    if req.result_status in {"v3_formal", "v3_3_formal"}:
-        missing = [
-            case.case_id
-            for case in req.cases
-            if not all(
-                (
-                    case.git_commit,
-                    case.dataset_version,
-                    case.model,
-                    case.config_version,
-                    case.prompt_version,
-                    case.evaluation_version,
-                    case.run_id,
-                    case.case_id,
-                    case.condition,
-                    case.reviewer_type,
-                )
-            )
-        ]
-        if missing:
-            raise HTTPException(
-                status_code=422,
-                detail={"error": "formal_v3_provenance_missing", "case_ids": missing},
-            )
-    suite = score_suite(req.cases)
-    result = suite.model_dump()
-    result.update(evaluate_review_metrics(req.cases, suite.cases))
-    result["case_context"] = [
-        {
-            "case_id": case.case_id,
-            "workflow": case.workflow,
-            "condition": case.condition,
-            "scenario_tier": case.scenario_tier,
-            "gold_final_state": case.gold_final_state.model_dump(mode="json"),
-            "model_draft": case.model_draft,
-            "deterministic_checks": case.deterministic_checks,
-            "review_action": case.review_action,
-            "reviewer_type": case.reviewer_type,
-            "draft_outcome": case.draft_outcome,
-        }
-        for case in req.cases
-    ]
-    if req.persist:
-        run_ids = sorted({case.run_id for case in req.cases})
-        persisted = {
-            "schema_version": "3.1",
-            "result_status": req.result_status,
-            "cases": [case.model_dump(mode="json") for case in req.cases],
-            "scores": result,
-        }
-        _remember(
-            "outcomes_v3",
-            persisted,
-            model="state-based",
-            params={"run_ids": run_ids, "n": len(req.cases)},
-            result_status=req.result_status,
-        )
-    return result
-
-
-class FrozenOutcomeRequest(BaseModel):
-    limit_per_workflow: int | None = Field(default=None, ge=1, le=108)
-    persist: bool = False
-    result_status: ResultStatus = "legacy_pilot"
-
-
-@router.post("/v3/frozen")
-async def frozen_outcome_eval(req: FrozenOutcomeRequest) -> dict[str, Any]:
-    """Replay existing frozen cached outputs; never make a new model call."""
-    cases = await asyncio.to_thread(
-        build_frozen_suite,
-        limit_per_workflow=req.limit_per_workflow,
-        result_status=req.result_status,
-    )
-    return await outcome_eval(OutcomeEvalRequest(
-        cases=cases, persist=req.persist, result_status=req.result_status
-    ))
-
-
-@router.post("/v3/paired")
-async def paired_outcome_eval(req: FrozenOutcomeRequest) -> dict[str, Any]:
-    """Run matched baseline/optimised lifecycles on identical cached inputs."""
-    cases = await asyncio.to_thread(
-        build_paired_suite,
-        limit_per_workflow=req.limit_per_workflow,
-        result_status=req.result_status,
-    )
-    return await outcome_eval(OutcomeEvalRequest(
-        cases=cases, persist=req.persist, result_status=req.result_status
-    ))
-
-
-@router.post("/v3.4/replay")
-async def replay_v34_outcomes() -> dict[str, Any]:
-    """Non-persisting verification replay of the frozen V3.4 matched suite."""
-    cases = await asyncio.to_thread(
-        build_v34_paired_suite, result_status="v3_4_verification"
-    )
-    return await outcome_eval(OutcomeEvalRequest(
-        cases=cases, persist=False, result_status="v3_4_verification"
-    ))
-
-
-@router.post("/v3.4.1/replay")
-async def replay_v341_outcomes() -> dict[str, Any]:
-    """Non-persisting verification replay of the sealed V3.4.1 suite."""
-    cases = await asyncio.to_thread(
-        build_v34_paired_suite, result_status="v3_4_1_verification"
-    )
-    return await outcome_eval(OutcomeEvalRequest(
-        cases=cases, persist=False, result_status="v3_4_1_verification"
-    ))
-
-
-@router.post("/v3.4.2/replay")
-async def replay_v342_outcomes() -> dict[str, Any]:
-    """Non-persisting verification replay of the sealed V3.4.2 suite."""
-    cases = await asyncio.to_thread(
-        build_v34_paired_suite, result_status="v3_4_2_verification"
-    )
-    return await outcome_eval(OutcomeEvalRequest(
-        cases=cases, persist=False, result_status="v3_4_2_verification"
-    ))
-
-
-@router.post("/v3.4.3/replay")
-async def replay_v343_outcomes() -> dict[str, Any]:
-    """Non-persisting verification replay of the sealed V3.4.3 suite."""
-    cases = await asyncio.to_thread(
-        build_v34_paired_suite, result_status="v3_4_3_verification"
-    )
-    return await outcome_eval(OutcomeEvalRequest(
-        cases=cases, persist=False, result_status="v3_4_3_verification"
-    ))
 
 
 @router.post("/part-a/final/replay")

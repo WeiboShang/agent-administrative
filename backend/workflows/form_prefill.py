@@ -1,7 +1,7 @@
 """WF3 (Form / Request Pre-filling) — deterministic core.
 
 The LLM classifies the form type and extracts field values; everything here is
-deterministic (workflow_design.md §3 · WF3, CLAUDE.md §4.4): load the form's field schema
+deterministic (see docs/workflow_design.md): load the form's field schema
 from the registry, type-check values, flag missing required fields (never inventing them),
 and compute completeness. Invalid required values (a non-date in a date field, a non-number
 in a numeric field) are nulled and therefore counted as missing.

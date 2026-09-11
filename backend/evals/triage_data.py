@@ -2,7 +2,7 @@
 
 Sample the gold action(s) + a difficulty tier, then realise a short thread. Gold = the
 action types that SHOULD be detected. Offline (no LLM/key); an LLM realiser can replace the
-templates later for realism (docs/data_strategy.md §3.2).
+templates later for realism (see docs/evaluation.md).
 """
 import random
 from dataclasses import dataclass

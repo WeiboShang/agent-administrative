@@ -1,4 +1,4 @@
-"""Perceptual image hash for near-duplicate receipt detection (docs/wf3_expense_design.md §L.2).
+"""Perceptual image hash for near-duplicate receipt detection.
 
 An 8×8 difference-hash (dHash): resize the greyscale image to 9×8, emit one bit per adjacent
 horizontal pixel pair (left brighter than right?), giving a 64-bit fingerprint. Robust to
