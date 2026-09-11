@@ -1,0 +1,1141 @@
+{
+  "error": null,
+  "input_tokens": 10021,
+  "model_turns": 7,
+  "output": "The receipt was processed, a claim for £8.54 (travel) was submitted by Alice and approved by Chen.",
+  "output_tokens": 625,
+  "runtime_seconds": 18.620408716000384,
+  "stop_reason": "final_response",
+  "tool_calls": [
+    {
+      "arguments": {},
+      "name": "read_receipt_evidence",
+      "observation": {
+        "frozen_evidence": {
+          "critical_read": {
+            "amount": 8.54,
+            "currency": "GBP",
+            "date": "2026-06-16",
+            "vendor": "BrightMart"
+          },
+          "primary_read": {
+            "amount": 8.54,
+            "category_guess": "travel",
+            "currency": "GBP",
+            "date": "2026-06-16",
+            "field_confidence": {
+              "amount": 1.0,
+              "category_guess": 1.0,
+              "date": 1.0,
+              "vendor": 1.0
+            },
+            "line_items": [
+              {
+                "amount": 4.46,
+                "desc": "Taxi fare"
+              },
+              {
+                "amount": 4.08,
+                "desc": "Bus pass"
+              }
+            ],
+            "payment_method": null,
+            "tax": null,
+            "vendor": "BrightMart"
+          }
+        },
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+    },
+    {
+      "arguments": {},
+      "name": "read_expense_policy",
+      "observation": {
+        "ok": true,
+        "policy": {
+          "budget": "Reject a claim that exceeds the remaining department budget or claimant quota.",
+          "currency": "Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.",
+          "duplicate": "A claim matching an approved vendor, date, amount and currency must be rejected.",
+          "evidence_disagreement": "A material disagreement between independent receipt reads requires abstention or rejection rather than approval.",
+          "future_date": "A receipt dated after the case date must not be approved without correction.",
+          "limits_gbp": {
+            "accommodation": 150.0,
+            "meals": 50.0,
+            "other": 100.0,
+            "software": 500.0,
+            "supplies": 200.0
+          },
+          "non_reimbursable": "Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.",
+          "over_limit": "A claim above its category limit must be rejected.",
+          "roles": "The claimant submits. A different authorised reviewer approves or rejects."
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-a85436145215542f"
+    },
+    {
+      "arguments": {
+        "statuses": []
+      },
+      "name": "inspect_existing_claims",
+      "observation": {
+        "claims": [
+          {
+            "data": {
+              "amount": 320.0,
+              "amount_gbp": 320.0,
+              "business_purpose": "Team license renewal",
+              "category": "software",
+              "currency": "GBP",
+              "date": "2026-06-15",
+              "department": "Engineering",
+              "employee_name": "Bob Rivera",
+              "fx_rate": 1.0,
+              "fx_rate_date": "2026-07-17",
+              "fx_schema_version": 1,
+              "fx_table_version": "ecb-2026-07-17",
+              "vendor": "TechMart Ltd"
+            },
+            "id": "exp-000004",
+            "status": "approved",
+            "store": "submissions",
+            "type": "expense_claim"
+          },
+          {
+            "data": {
+              "amount": 18.5,
+              "amount_gbp": 18.5,
+              "business_purpose": "Client site visit",
+              "category": "travel",
+              "currency": "GBP",
+              "date": "2026-06-20",
+              "department": "Product",
+              "employee_name": "Alice Tan",
+              "fx_rate": 1.0,
+              "fx_rate_date": "2026-07-17",
+              "fx_schema_version": 1,
+              "fx_table_version": "ecb-2026-07-17",
+              "vendor": "CityCab"
+            },
+            "id": "exp-000005",
+            "status": "approved",
+            "store": "submissions",
+            "type": "expense_claim"
+          },
+          {
+            "data": {
+              "amount": 24.0,
+              "amount_gbp": 24.0,
+              "business_purpose": "Airport transfer",
+              "category": "travel",
+              "currency": "GBP",
+              "date": "2026-06-22",
+              "department": "Engineering",
+              "employee_name": "Bob Rivera",
+              "fx_rate": 1.0,
+              "fx_rate_date": "2026-07-17",
+              "fx_schema_version": 1,
+              "fx_table_version": "ecb-2026-07-17",
+              "vendor": "CityCab"
+            },
+            "id": "exp-000006",
+            "status": "approved",
+            "store": "submissions",
+            "type": "expense_claim"
+          }
+        ],
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-9dbced67bc104654"
+    },
+    {
+      "arguments": {},
+      "name": "inspect_budget_state",
+      "observation": {
+        "claimant": "alice",
+        "claimant_quota_remaining_gbp": 2981.5,
+        "department": "Product",
+        "department_remaining_gbp": 2981.5,
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-bef6623e16b6eb55"
+    },
+    {
+      "arguments": {
+        "amount": 8.54,
+        "business_purpose": "Local transport for work",
+        "category": "travel",
+        "currency": "GBP",
+        "date": "2026-06-16",
+        "line_items": [
+          {
+            "amount": 4.46,
+            "desc": "Taxi fare"
+          },
+          {
+            "amount": 4.08,
+            "desc": "Bus pass"
+          }
+        ],
+        "vendor": "BrightMart"
+      },
+      "name": "submit_expense_claim",
+      "observation": {
+        "delegated_actor": "alice",
+        "ok": true,
+        "record": {
+          "data": {
+            "amount": 8.54,
+            "amount_gbp": 8.54,
+            "business_purpose": "Local transport for work",
+            "category": "travel",
+            "created_by_external_agent": true,
+            "currency": "GBP",
+            "date": "2026-06-16",
+            "employee_name": "Alice Tan",
+            "fx_rate": 1.0,
+            "fx_rate_date": "2026-07-17",
+            "fx_schema_version": 1,
+            "fx_table_version": "ecb-2026-07-17",
+            "line_items": [
+              {
+                "amount": 4.46,
+                "desc": "Taxi fare"
+              },
+              {
+                "amount": 4.08,
+                "desc": "Bus pass"
+              }
+            ],
+            "receipt_ref": "wf3-low_res_13.png",
+            "submitted_by": "alice",
+            "vendor": "BrightMart",
+            "version": 1
+          },
+          "id": "exp-000015",
+          "status": "submitted",
+          "store": "submissions",
+          "type": "expense_claim"
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-c20890baf6c24fbea35617e8b3d31feb"
+    },
+    {
+      "arguments": {
+        "reason": "Receipt evidence clear and consistent; amount 8.54 GBP for travel within limits, budget sufficient, no duplicate.",
+        "record_id": "exp-000015"
+      },
+      "name": "approve_expense_claim",
+      "observation": {
+        "delegated_actor": "chen",
+        "ok": true,
+        "record": {
+          "data": {
+            "amount": 8.54,
+            "amount_gbp": 8.54,
+            "business_purpose": "Local transport for work",
+            "category": "travel",
+            "created_by_external_agent": true,
+            "currency": "GBP",
+            "date": "2026-06-16",
+            "decision_reason": "Receipt evidence clear and consistent; amount 8.54 GBP for travel within limits, budget sufficient, no duplicate.",
+            "employee_name": "Alice Tan",
+            "fx_rate": 1.0,
+            "fx_rate_date": "2026-07-17",
+            "fx_schema_version": 1,
+            "fx_table_version": "ecb-2026-07-17",
+            "line_items": [
+              {
+                "amount": 4.46,
+                "desc": "Taxi fare"
+              },
+              {
+                "amount": 4.08,
+                "desc": "Bus pass"
+              }
+            ],
+            "receipt_ref": "wf3-low_res_13.png",
+            "reviewed_by": "chen",
+            "submitted_by": "alice",
+            "vendor": "BrightMart",
+            "version": 2
+          },
+          "id": "exp-000015",
+          "status": "approved",
+          "store": "submissions",
+          "type": "expense_claim"
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-be0c63faead3e3ef"
+    }
+  ],
+  "total_tokens": 10646,
+  "trace": [
+    {
+      "elapsed_seconds": 2.0083908020023955,
+      "finish_reason": "tool_calls",
+      "iteration": 1,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_13.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-bc361b6baef9816e",
+          "name": "read_receipt_evidence",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "read_receipt_evidence",
+          "observation": {
+            "frozen_evidence": {
+              "critical_read": {
+                "amount": 8.54,
+                "currency": "GBP",
+                "date": "2026-06-16",
+                "vendor": "BrightMart"
+              },
+              "primary_read": {
+                "amount": 8.54,
+                "category_guess": "travel",
+                "currency": "GBP",
+                "date": "2026-06-16",
+                "field_confidence": {
+                  "amount": 1.0,
+                  "category_guess": 1.0,
+                  "date": 1.0,
+                  "vendor": 1.0
+                },
+                "line_items": [
+                  {
+                    "amount": 4.46,
+                    "desc": "Taxi fare"
+                  },
+                  {
+                    "amount": 4.08,
+                    "desc": "Bus pass"
+                  }
+                ],
+                "payment_method": null,
+                "tax": null,
+                "vendor": "BrightMart"
+              }
+            },
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+        }
+      ],
+      "usage": {
+        "input_tokens": 624,
+        "output_tokens": 29,
+        "total_tokens": 653
+      }
+    },
+    {
+      "elapsed_seconds": 3.2692920030021924,
+      "finish_reason": "tool_calls",
+      "iteration": 2,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_13.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bc361b6baef9816e",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 8.54, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"vendor\": \"BrightMart\"}, \"primary_read\": {\"amount\": 8.54, \"category_guess\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"BrightMart\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-a85436145215542f",
+          "name": "read_expense_policy",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "read_expense_policy",
+          "observation": {
+            "ok": true,
+            "policy": {
+              "budget": "Reject a claim that exceeds the remaining department budget or claimant quota.",
+              "currency": "Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.",
+              "duplicate": "A claim matching an approved vendor, date, amount and currency must be rejected.",
+              "evidence_disagreement": "A material disagreement between independent receipt reads requires abstention or rejection rather than approval.",
+              "future_date": "A receipt dated after the case date must not be approved without correction.",
+              "limits_gbp": {
+                "accommodation": 150.0,
+                "meals": 50.0,
+                "other": 100.0,
+                "software": 500.0,
+                "supplies": 200.0
+              },
+              "non_reimbursable": "Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.",
+              "over_limit": "A claim above its category limit must be rejected.",
+              "roles": "The claimant submits. A different authorised reviewer approves or rejects."
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-a85436145215542f"
+        }
+      ],
+      "usage": {
+        "input_tokens": 831,
+        "output_tokens": 61,
+        "total_tokens": 892
+      }
+    },
+    {
+      "elapsed_seconds": 4.625600405001023,
+      "finish_reason": "tool_calls",
+      "iteration": 3,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_13.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bc361b6baef9816e",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 8.54, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"vendor\": \"BrightMart\"}, \"primary_read\": {\"amount\": 8.54, \"category_guess\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"BrightMart\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-a85436145215542f",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-a85436145215542f"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "statuses": []
+          },
+          "id": "chatcmpl-tool-9dbced67bc104654",
+          "name": "inspect_existing_claims",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "statuses": []
+          },
+          "name": "inspect_existing_claims",
+          "observation": {
+            "claims": [
+              {
+                "data": {
+                  "amount": 320.0,
+                  "amount_gbp": 320.0,
+                  "business_purpose": "Team license renewal",
+                  "category": "software",
+                  "currency": "GBP",
+                  "date": "2026-06-15",
+                  "department": "Engineering",
+                  "employee_name": "Bob Rivera",
+                  "fx_rate": 1.0,
+                  "fx_rate_date": "2026-07-17",
+                  "fx_schema_version": 1,
+                  "fx_table_version": "ecb-2026-07-17",
+                  "vendor": "TechMart Ltd"
+                },
+                "id": "exp-000004",
+                "status": "approved",
+                "store": "submissions",
+                "type": "expense_claim"
+              },
+              {
+                "data": {
+                  "amount": 18.5,
+                  "amount_gbp": 18.5,
+                  "business_purpose": "Client site visit",
+                  "category": "travel",
+                  "currency": "GBP",
+                  "date": "2026-06-20",
+                  "department": "Product",
+                  "employee_name": "Alice Tan",
+                  "fx_rate": 1.0,
+                  "fx_rate_date": "2026-07-17",
+                  "fx_schema_version": 1,
+                  "fx_table_version": "ecb-2026-07-17",
+                  "vendor": "CityCab"
+                },
+                "id": "exp-000005",
+                "status": "approved",
+                "store": "submissions",
+                "type": "expense_claim"
+              },
+              {
+                "data": {
+                  "amount": 24.0,
+                  "amount_gbp": 24.0,
+                  "business_purpose": "Airport transfer",
+                  "category": "travel",
+                  "currency": "GBP",
+                  "date": "2026-06-22",
+                  "department": "Engineering",
+                  "employee_name": "Bob Rivera",
+                  "fx_rate": 1.0,
+                  "fx_rate_date": "2026-07-17",
+                  "fx_schema_version": 1,
+                  "fx_table_version": "ecb-2026-07-17",
+                  "vendor": "CityCab"
+                },
+                "id": "exp-000006",
+                "status": "approved",
+                "store": "submissions",
+                "type": "expense_claim"
+              }
+            ],
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-9dbced67bc104654"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1073,
+        "output_tokens": 100,
+        "total_tokens": 1173
+      }
+    },
+    {
+      "elapsed_seconds": 6.303485907003051,
+      "finish_reason": "tool_calls",
+      "iteration": 4,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_13.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bc361b6baef9816e",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 8.54, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"vendor\": \"BrightMart\"}, \"primary_read\": {\"amount\": 8.54, \"category_guess\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"BrightMart\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-a85436145215542f",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-a85436145215542f"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "statuses": []
+              },
+              "id": "chatcmpl-tool-9dbced67bc104654",
+              "name": "inspect_existing_claims",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claims\": [{\"data\": {\"amount\": 320.0, \"amount_gbp\": 320.0, \"business_purpose\": \"Team license renewal\", \"category\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-15\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"TechMart Ltd\"}, \"id\": \"exp-000004\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 18.5, \"amount_gbp\": 18.5, \"business_purpose\": \"Client site visit\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-20\", \"department\": \"Product\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000005\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 24.0, \"amount_gbp\": 24.0, \"business_purpose\": \"Airport transfer\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-22\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000006\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}], \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9dbced67bc104654"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-bef6623e16b6eb55",
+          "name": "inspect_budget_state",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "inspect_budget_state",
+          "observation": {
+            "claimant": "alice",
+            "claimant_quota_remaining_gbp": 2981.5,
+            "department": "Product",
+            "department_remaining_gbp": 2981.5,
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-bef6623e16b6eb55"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1566,
+        "output_tokens": 88,
+        "total_tokens": 1654
+      }
+    },
+    {
+      "elapsed_seconds": 15.657109517000208,
+      "finish_reason": "tool_calls",
+      "iteration": 5,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_13.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bc361b6baef9816e",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 8.54, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"vendor\": \"BrightMart\"}, \"primary_read\": {\"amount\": 8.54, \"category_guess\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"BrightMart\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-a85436145215542f",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-a85436145215542f"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "statuses": []
+              },
+              "id": "chatcmpl-tool-9dbced67bc104654",
+              "name": "inspect_existing_claims",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claims\": [{\"data\": {\"amount\": 320.0, \"amount_gbp\": 320.0, \"business_purpose\": \"Team license renewal\", \"category\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-15\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"TechMart Ltd\"}, \"id\": \"exp-000004\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 18.5, \"amount_gbp\": 18.5, \"business_purpose\": \"Client site visit\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-20\", \"department\": \"Product\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000005\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 24.0, \"amount_gbp\": 24.0, \"business_purpose\": \"Airport transfer\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-22\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000006\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}], \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9dbced67bc104654"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bef6623e16b6eb55",
+              "name": "inspect_budget_state",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claimant\": \"alice\", \"claimant_quota_remaining_gbp\": 2981.5, \"department\": \"Product\", \"department_remaining_gbp\": 2981.5, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bef6623e16b6eb55"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "amount": 8.54,
+            "business_purpose": "Local transport for work",
+            "category": "travel",
+            "currency": "GBP",
+            "date": "2026-06-16",
+            "line_items": [
+              {
+                "amount": 4.46,
+                "desc": "Taxi fare"
+              },
+              {
+                "amount": 4.08,
+                "desc": "Bus pass"
+              }
+            ],
+            "vendor": "BrightMart"
+          },
+          "id": "chatcmpl-tool-c20890baf6c24fbea35617e8b3d31feb",
+          "name": "submit_expense_claim",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "amount": 8.54,
+            "business_purpose": "Local transport for work",
+            "category": "travel",
+            "currency": "GBP",
+            "date": "2026-06-16",
+            "line_items": [
+              {
+                "amount": 4.46,
+                "desc": "Taxi fare"
+              },
+              {
+                "amount": 4.08,
+                "desc": "Bus pass"
+              }
+            ],
+            "vendor": "BrightMart"
+          },
+          "name": "submit_expense_claim",
+          "observation": {
+            "delegated_actor": "alice",
+            "ok": true,
+            "record": {
+              "data": {
+                "amount": 8.54,
+                "amount_gbp": 8.54,
+                "business_purpose": "Local transport for work",
+                "category": "travel",
+                "created_by_external_agent": true,
+                "currency": "GBP",
+                "date": "2026-06-16",
+                "employee_name": "Alice Tan",
+                "fx_rate": 1.0,
+                "fx_rate_date": "2026-07-17",
+                "fx_schema_version": 1,
+                "fx_table_version": "ecb-2026-07-17",
+                "line_items": [
+                  {
+                    "amount": 4.46,
+                    "desc": "Taxi fare"
+                  },
+                  {
+                    "amount": 4.08,
+                    "desc": "Bus pass"
+                  }
+                ],
+                "receipt_ref": "wf3-low_res_13.png",
+                "submitted_by": "alice",
+                "vendor": "BrightMart",
+                "version": 1
+              },
+              "id": "exp-000015",
+              "status": "submitted",
+              "store": "submissions",
+              "type": "expense_claim"
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-c20890baf6c24fbea35617e8b3d31feb"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1628,
+        "output_tokens": 225,
+        "total_tokens": 1853
+      }
+    },
+    {
+      "elapsed_seconds": 17.887919017004606,
+      "finish_reason": "tool_calls",
+      "iteration": 6,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_13.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bc361b6baef9816e",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 8.54, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"vendor\": \"BrightMart\"}, \"primary_read\": {\"amount\": 8.54, \"category_guess\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"BrightMart\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-a85436145215542f",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-a85436145215542f"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "statuses": []
+              },
+              "id": "chatcmpl-tool-9dbced67bc104654",
+              "name": "inspect_existing_claims",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claims\": [{\"data\": {\"amount\": 320.0, \"amount_gbp\": 320.0, \"business_purpose\": \"Team license renewal\", \"category\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-15\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"TechMart Ltd\"}, \"id\": \"exp-000004\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 18.5, \"amount_gbp\": 18.5, \"business_purpose\": \"Client site visit\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-20\", \"department\": \"Product\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000005\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 24.0, \"amount_gbp\": 24.0, \"business_purpose\": \"Airport transfer\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-22\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000006\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}], \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9dbced67bc104654"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bef6623e16b6eb55",
+              "name": "inspect_budget_state",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claimant\": \"alice\", \"claimant_quota_remaining_gbp\": 2981.5, \"department\": \"Product\", \"department_remaining_gbp\": 2981.5, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bef6623e16b6eb55"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "amount": 8.54,
+                "business_purpose": "Local transport for work",
+                "category": "travel",
+                "currency": "GBP",
+                "date": "2026-06-16",
+                "line_items": [
+                  {
+                    "amount": 4.46,
+                    "desc": "Taxi fare"
+                  },
+                  {
+                    "amount": 4.08,
+                    "desc": "Bus pass"
+                  }
+                ],
+                "vendor": "BrightMart"
+              },
+              "id": "chatcmpl-tool-c20890baf6c24fbea35617e8b3d31feb",
+              "name": "submit_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"alice\", \"ok\": true, \"record\": {\"data\": {\"amount\": 8.54, \"amount_gbp\": 8.54, \"business_purpose\": \"Local transport for work\", \"category\": \"travel\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"receipt_ref\": \"wf3-low_res_13.png\", \"submitted_by\": \"alice\", \"vendor\": \"BrightMart\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-c20890baf6c24fbea35617e8b3d31feb"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "reason": "Receipt evidence clear and consistent; amount 8.54 GBP for travel within limits, budget sufficient, no duplicate.",
+            "record_id": "exp-000015"
+          },
+          "id": "chatcmpl-tool-be0c63faead3e3ef",
+          "name": "approve_expense_claim",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "reason": "Receipt evidence clear and consistent; amount 8.54 GBP for travel within limits, budget sufficient, no duplicate.",
+            "record_id": "exp-000015"
+          },
+          "name": "approve_expense_claim",
+          "observation": {
+            "delegated_actor": "chen",
+            "ok": true,
+            "record": {
+              "data": {
+                "amount": 8.54,
+                "amount_gbp": 8.54,
+                "business_purpose": "Local transport for work",
+                "category": "travel",
+                "created_by_external_agent": true,
+                "currency": "GBP",
+                "date": "2026-06-16",
+                "decision_reason": "Receipt evidence clear and consistent; amount 8.54 GBP for travel within limits, budget sufficient, no duplicate.",
+                "employee_name": "Alice Tan",
+                "fx_rate": 1.0,
+                "fx_rate_date": "2026-07-17",
+                "fx_schema_version": 1,
+                "fx_table_version": "ecb-2026-07-17",
+                "line_items": [
+                  {
+                    "amount": 4.46,
+                    "desc": "Taxi fare"
+                  },
+                  {
+                    "amount": 4.08,
+                    "desc": "Bus pass"
+                  }
+                ],
+                "receipt_ref": "wf3-low_res_13.png",
+                "reviewed_by": "chen",
+                "submitted_by": "alice",
+                "vendor": "BrightMart",
+                "version": 2
+              },
+              "id": "exp-000015",
+              "status": "approved",
+              "store": "submissions",
+              "type": "expense_claim"
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-be0c63faead3e3ef"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1982,
+        "output_tokens": 94,
+        "total_tokens": 2076
+      }
+    },
+    {
+      "elapsed_seconds": 18.620408716000384,
+      "finish_reason": "stop",
+      "iteration": 7,
+      "model_content": "The receipt was processed, a claim for £8.54 (travel) was submitted by Alice and approved by Chen.",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_13.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bc361b6baef9816e",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 8.54, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"vendor\": \"BrightMart\"}, \"primary_read\": {\"amount\": 8.54, \"category_guess\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"BrightMart\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bc361b6baef9816e"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-a85436145215542f",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-a85436145215542f"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "statuses": []
+              },
+              "id": "chatcmpl-tool-9dbced67bc104654",
+              "name": "inspect_existing_claims",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claims\": [{\"data\": {\"amount\": 320.0, \"amount_gbp\": 320.0, \"business_purpose\": \"Team license renewal\", \"category\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-15\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"TechMart Ltd\"}, \"id\": \"exp-000004\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 18.5, \"amount_gbp\": 18.5, \"business_purpose\": \"Client site visit\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-20\", \"department\": \"Product\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000005\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 24.0, \"amount_gbp\": 24.0, \"business_purpose\": \"Airport transfer\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-22\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000006\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}], \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9dbced67bc104654"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-bef6623e16b6eb55",
+              "name": "inspect_budget_state",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claimant\": \"alice\", \"claimant_quota_remaining_gbp\": 2981.5, \"department\": \"Product\", \"department_remaining_gbp\": 2981.5, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-bef6623e16b6eb55"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "amount": 8.54,
+                "business_purpose": "Local transport for work",
+                "category": "travel",
+                "currency": "GBP",
+                "date": "2026-06-16",
+                "line_items": [
+                  {
+                    "amount": 4.46,
+                    "desc": "Taxi fare"
+                  },
+                  {
+                    "amount": 4.08,
+                    "desc": "Bus pass"
+                  }
+                ],
+                "vendor": "BrightMart"
+              },
+              "id": "chatcmpl-tool-c20890baf6c24fbea35617e8b3d31feb",
+              "name": "submit_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"alice\", \"ok\": true, \"record\": {\"data\": {\"amount\": 8.54, \"amount_gbp\": 8.54, \"business_purpose\": \"Local transport for work\", \"category\": \"travel\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"receipt_ref\": \"wf3-low_res_13.png\", \"submitted_by\": \"alice\", \"vendor\": \"BrightMart\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-c20890baf6c24fbea35617e8b3d31feb"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "reason": "Receipt evidence clear and consistent; amount 8.54 GBP for travel within limits, budget sufficient, no duplicate.",
+                "record_id": "exp-000015"
+              },
+              "id": "chatcmpl-tool-be0c63faead3e3ef",
+              "name": "approve_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"chen\", \"ok\": true, \"record\": {\"data\": {\"amount\": 8.54, \"amount_gbp\": 8.54, \"business_purpose\": \"Local transport for work\", \"category\": \"travel\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-16\", \"decision_reason\": \"Receipt evidence clear and consistent; amount 8.54 GBP for travel within limits, budget sufficient, no duplicate.\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 4.46, \"desc\": \"Taxi fare\"}, {\"amount\": 4.08, \"desc\": \"Bus pass\"}], \"receipt_ref\": \"wf3-low_res_13.png\", \"reviewed_by\": \"chen\", \"submitted_by\": \"alice\", \"vendor\": \"BrightMart\", \"version\": 2}, \"id\": \"exp-000015\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-be0c63faead3e3ef"
+        }
+      ],
+      "tool_calls": [],
+      "tool_results": [],
+      "usage": {
+        "input_tokens": 2317,
+        "output_tokens": 28,
+        "total_tokens": 2345
+      }
+    }
+  ]
+}

@@ -1,0 +1,808 @@
+{
+  "error": null,
+  "input_tokens": 6775,
+  "model_turns": 6,
+  "output": "The receipt clean_14.png shows a valid business lunch of £11.56 from The Green Kitchen on 2026‑05‑28. The claim was submitted by Alice, meets the meals category limit, fits within the remaining budget and quota, and has no policy conflicts. It has been approved by Chen.",
+  "output_tokens": 499,
+  "runtime_seconds": 18.95271495199995,
+  "stop_reason": "final_response",
+  "tool_calls": [
+    {
+      "arguments": {},
+      "name": "read_receipt_evidence",
+      "observation": {
+        "frozen_evidence": {
+          "critical_read": {
+            "amount": 11.56,
+            "currency": "GBP",
+            "date": "2026-05-28",
+            "vendor": "The Green Kitchen"
+          },
+          "primary_read": {
+            "amount": 11.56,
+            "category_guess": "meals",
+            "currency": "GBP",
+            "date": "2026-05-28",
+            "field_confidence": {
+              "amount": 1.0,
+              "category_guess": 1.0,
+              "date": 1.0,
+              "vendor": 1.0
+            },
+            "line_items": [
+              {
+                "amount": 11.56,
+                "desc": "Set lunch"
+              }
+            ],
+            "payment_method": null,
+            "tax": null,
+            "vendor": "The Green Kitchen"
+          }
+        },
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3"
+    },
+    {
+      "arguments": {},
+      "name": "read_expense_policy",
+      "observation": {
+        "ok": true,
+        "policy": {
+          "budget": "Reject a claim that exceeds the remaining department budget or claimant quota.",
+          "currency": "Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.",
+          "duplicate": "A claim matching an approved vendor, date, amount and currency must be rejected.",
+          "evidence_disagreement": "A material disagreement between independent receipt reads requires abstention or rejection rather than approval.",
+          "future_date": "A receipt dated after the case date must not be approved without correction.",
+          "limits_gbp": {
+            "accommodation": 150.0,
+            "meals": 50.0,
+            "other": 100.0,
+            "software": 500.0,
+            "supplies": 200.0
+          },
+          "non_reimbursable": "Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.",
+          "over_limit": "A claim above its category limit must be rejected.",
+          "roles": "The claimant submits. A different authorised reviewer approves or rejects."
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-9d364d255167459193c2177af6e01513"
+    },
+    {
+      "arguments": {},
+      "name": "inspect_budget_state",
+      "observation": {
+        "claimant": "alice",
+        "claimant_quota_remaining_gbp": 2981.5,
+        "department": "Product",
+        "department_remaining_gbp": 2981.5,
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11"
+    },
+    {
+      "arguments": {
+        "amount": 11.56,
+        "business_purpose": "Business lunch",
+        "category": "meals",
+        "currency": "GBP",
+        "date": "2026-05-28",
+        "line_items": [
+          {
+            "amount": 11.56,
+            "desc": "Set lunch"
+          }
+        ],
+        "vendor": "The Green Kitchen"
+      },
+      "name": "submit_expense_claim",
+      "observation": {
+        "delegated_actor": "alice",
+        "ok": true,
+        "record": {
+          "data": {
+            "amount": 11.56,
+            "amount_gbp": 11.56,
+            "business_purpose": "Business lunch",
+            "category": "meals",
+            "created_by_external_agent": true,
+            "currency": "GBP",
+            "date": "2026-05-28",
+            "employee_name": "Alice Tan",
+            "fx_rate": 1.0,
+            "fx_rate_date": "2026-07-17",
+            "fx_schema_version": 1,
+            "fx_table_version": "ecb-2026-07-17",
+            "line_items": [
+              {
+                "amount": 11.56,
+                "desc": "Set lunch"
+              }
+            ],
+            "receipt_ref": "wf3-clean_14.png",
+            "submitted_by": "alice",
+            "vendor": "The Green Kitchen",
+            "version": 1
+          },
+          "id": "exp-000015",
+          "status": "submitted",
+          "store": "submissions",
+          "type": "expense_claim"
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-617c3671cc824bc68911ae84df5270b5"
+    },
+    {
+      "arguments": {
+        "reason": "Receipt confirms a legitimate business lunch of 11.56 GBP within meals limit and budget; no policy conflicts.",
+        "record_id": "exp-000015"
+      },
+      "name": "approve_expense_claim",
+      "observation": {
+        "delegated_actor": "chen",
+        "ok": true,
+        "record": {
+          "data": {
+            "amount": 11.56,
+            "amount_gbp": 11.56,
+            "business_purpose": "Business lunch",
+            "category": "meals",
+            "created_by_external_agent": true,
+            "currency": "GBP",
+            "date": "2026-05-28",
+            "decision_reason": "Receipt confirms a legitimate business lunch of 11.56 GBP within meals limit and budget; no policy conflicts.",
+            "employee_name": "Alice Tan",
+            "fx_rate": 1.0,
+            "fx_rate_date": "2026-07-17",
+            "fx_schema_version": 1,
+            "fx_table_version": "ecb-2026-07-17",
+            "line_items": [
+              {
+                "amount": 11.56,
+                "desc": "Set lunch"
+              }
+            ],
+            "receipt_ref": "wf3-clean_14.png",
+            "reviewed_by": "chen",
+            "submitted_by": "alice",
+            "vendor": "The Green Kitchen",
+            "version": 2
+          },
+          "id": "exp-000015",
+          "status": "approved",
+          "store": "submissions",
+          "type": "expense_claim"
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-71dd5af243eb403a963075fefa10c08a"
+    }
+  ],
+  "total_tokens": 7274,
+  "trace": [
+    {
+      "elapsed_seconds": 1.6564102960037417,
+      "finish_reason": "tool_calls",
+      "iteration": 1,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference clean_14.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3",
+          "name": "read_receipt_evidence",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "read_receipt_evidence",
+          "observation": {
+            "frozen_evidence": {
+              "critical_read": {
+                "amount": 11.56,
+                "currency": "GBP",
+                "date": "2026-05-28",
+                "vendor": "The Green Kitchen"
+              },
+              "primary_read": {
+                "amount": 11.56,
+                "category_guess": "meals",
+                "currency": "GBP",
+                "date": "2026-05-28",
+                "field_confidence": {
+                  "amount": 1.0,
+                  "category_guess": 1.0,
+                  "date": 1.0,
+                  "vendor": 1.0
+                },
+                "line_items": [
+                  {
+                    "amount": 11.56,
+                    "desc": "Set lunch"
+                  }
+                ],
+                "payment_method": null,
+                "tax": null,
+                "vendor": "The Green Kitchen"
+              }
+            },
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3"
+        }
+      ],
+      "usage": {
+        "input_tokens": 612,
+        "output_tokens": 40,
+        "total_tokens": 652
+      }
+    },
+    {
+      "elapsed_seconds": 3.904714789998252,
+      "finish_reason": "tool_calls",
+      "iteration": 2,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference clean_14.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 11.56, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"vendor\": \"The Green Kitchen\"}, \"primary_read\": {\"amount\": 11.56, \"category_guess\": \"meals\", \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"The Green Kitchen\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-9d364d255167459193c2177af6e01513",
+          "name": "read_expense_policy",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "read_expense_policy",
+          "observation": {
+            "ok": true,
+            "policy": {
+              "budget": "Reject a claim that exceeds the remaining department budget or claimant quota.",
+              "currency": "Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.",
+              "duplicate": "A claim matching an approved vendor, date, amount and currency must be rejected.",
+              "evidence_disagreement": "A material disagreement between independent receipt reads requires abstention or rejection rather than approval.",
+              "future_date": "A receipt dated after the case date must not be approved without correction.",
+              "limits_gbp": {
+                "accommodation": 150.0,
+                "meals": 50.0,
+                "other": 100.0,
+                "software": 500.0,
+                "supplies": 200.0
+              },
+              "non_reimbursable": "Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.",
+              "over_limit": "A claim above its category limit must be rejected.",
+              "roles": "The claimant submits. A different authorised reviewer approves or rejects."
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-9d364d255167459193c2177af6e01513"
+        }
+      ],
+      "usage": {
+        "input_tokens": 807,
+        "output_tokens": 60,
+        "total_tokens": 867
+      }
+    },
+    {
+      "elapsed_seconds": 7.424884181004018,
+      "finish_reason": "tool_calls",
+      "iteration": 3,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference clean_14.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 11.56, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"vendor\": \"The Green Kitchen\"}, \"primary_read\": {\"amount\": 11.56, \"category_guess\": \"meals\", \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"The Green Kitchen\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-9d364d255167459193c2177af6e01513",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9d364d255167459193c2177af6e01513"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11",
+          "name": "inspect_budget_state",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "inspect_budget_state",
+          "observation": {
+            "claimant": "alice",
+            "claimant_quota_remaining_gbp": 2981.5,
+            "department": "Product",
+            "department_remaining_gbp": 2981.5,
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1049,
+        "output_tokens": 70,
+        "total_tokens": 1119
+      }
+    },
+    {
+      "elapsed_seconds": 13.593608365001273,
+      "finish_reason": "tool_calls",
+      "iteration": 4,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference clean_14.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 11.56, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"vendor\": \"The Green Kitchen\"}, \"primary_read\": {\"amount\": 11.56, \"category_guess\": \"meals\", \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"The Green Kitchen\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-9d364d255167459193c2177af6e01513",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9d364d255167459193c2177af6e01513"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11",
+              "name": "inspect_budget_state",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claimant\": \"alice\", \"claimant_quota_remaining_gbp\": 2981.5, \"department\": \"Product\", \"department_remaining_gbp\": 2981.5, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "amount": 11.56,
+            "business_purpose": "Business lunch",
+            "category": "meals",
+            "currency": "GBP",
+            "date": "2026-05-28",
+            "line_items": [
+              {
+                "amount": 11.56,
+                "desc": "Set lunch"
+              }
+            ],
+            "vendor": "The Green Kitchen"
+          },
+          "id": "chatcmpl-tool-617c3671cc824bc68911ae84df5270b5",
+          "name": "submit_expense_claim",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "amount": 11.56,
+            "business_purpose": "Business lunch",
+            "category": "meals",
+            "currency": "GBP",
+            "date": "2026-05-28",
+            "line_items": [
+              {
+                "amount": 11.56,
+                "desc": "Set lunch"
+              }
+            ],
+            "vendor": "The Green Kitchen"
+          },
+          "name": "submit_expense_claim",
+          "observation": {
+            "delegated_actor": "alice",
+            "ok": true,
+            "record": {
+              "data": {
+                "amount": 11.56,
+                "amount_gbp": 11.56,
+                "business_purpose": "Business lunch",
+                "category": "meals",
+                "created_by_external_agent": true,
+                "currency": "GBP",
+                "date": "2026-05-28",
+                "employee_name": "Alice Tan",
+                "fx_rate": 1.0,
+                "fx_rate_date": "2026-07-17",
+                "fx_schema_version": 1,
+                "fx_table_version": "ecb-2026-07-17",
+                "line_items": [
+                  {
+                    "amount": 11.56,
+                    "desc": "Set lunch"
+                  }
+                ],
+                "receipt_ref": "wf3-clean_14.png",
+                "submitted_by": "alice",
+                "vendor": "The Green Kitchen",
+                "version": 1
+              },
+              "id": "exp-000015",
+              "status": "submitted",
+              "store": "submissions",
+              "type": "expense_claim"
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-617c3671cc824bc68911ae84df5270b5"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1122,
+        "output_tokens": 165,
+        "total_tokens": 1287
+      }
+    },
+    {
+      "elapsed_seconds": 16.66955215800408,
+      "finish_reason": "tool_calls",
+      "iteration": 5,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference clean_14.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 11.56, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"vendor\": \"The Green Kitchen\"}, \"primary_read\": {\"amount\": 11.56, \"category_guess\": \"meals\", \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"The Green Kitchen\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-9d364d255167459193c2177af6e01513",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9d364d255167459193c2177af6e01513"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11",
+              "name": "inspect_budget_state",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claimant\": \"alice\", \"claimant_quota_remaining_gbp\": 2981.5, \"department\": \"Product\", \"department_remaining_gbp\": 2981.5, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "amount": 11.56,
+                "business_purpose": "Business lunch",
+                "category": "meals",
+                "currency": "GBP",
+                "date": "2026-05-28",
+                "line_items": [
+                  {
+                    "amount": 11.56,
+                    "desc": "Set lunch"
+                  }
+                ],
+                "vendor": "The Green Kitchen"
+              },
+              "id": "chatcmpl-tool-617c3671cc824bc68911ae84df5270b5",
+              "name": "submit_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"alice\", \"ok\": true, \"record\": {\"data\": {\"amount\": 11.56, \"amount_gbp\": 11.56, \"business_purpose\": \"Business lunch\", \"category\": \"meals\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"receipt_ref\": \"wf3-clean_14.png\", \"submitted_by\": \"alice\", \"vendor\": \"The Green Kitchen\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-617c3671cc824bc68911ae84df5270b5"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "reason": "Receipt confirms a legitimate business lunch of 11.56 GBP within meals limit and budget; no policy conflicts.",
+            "record_id": "exp-000015"
+          },
+          "id": "chatcmpl-tool-71dd5af243eb403a963075fefa10c08a",
+          "name": "approve_expense_claim",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "reason": "Receipt confirms a legitimate business lunch of 11.56 GBP within meals limit and budget; no policy conflicts.",
+            "record_id": "exp-000015"
+          },
+          "name": "approve_expense_claim",
+          "observation": {
+            "delegated_actor": "chen",
+            "ok": true,
+            "record": {
+              "data": {
+                "amount": 11.56,
+                "amount_gbp": 11.56,
+                "business_purpose": "Business lunch",
+                "category": "meals",
+                "created_by_external_agent": true,
+                "currency": "GBP",
+                "date": "2026-05-28",
+                "decision_reason": "Receipt confirms a legitimate business lunch of 11.56 GBP within meals limit and budget; no policy conflicts.",
+                "employee_name": "Alice Tan",
+                "fx_rate": 1.0,
+                "fx_rate_date": "2026-07-17",
+                "fx_schema_version": 1,
+                "fx_table_version": "ecb-2026-07-17",
+                "line_items": [
+                  {
+                    "amount": 11.56,
+                    "desc": "Set lunch"
+                  }
+                ],
+                "receipt_ref": "wf3-clean_14.png",
+                "reviewed_by": "chen",
+                "submitted_by": "alice",
+                "vendor": "The Green Kitchen",
+                "version": 2
+              },
+              "id": "exp-000015",
+              "status": "approved",
+              "store": "submissions",
+              "type": "expense_claim"
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-71dd5af243eb403a963075fefa10c08a"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1434,
+        "output_tokens": 95,
+        "total_tokens": 1529
+      }
+    },
+    {
+      "elapsed_seconds": 18.95271495199995,
+      "finish_reason": "stop",
+      "iteration": 6,
+      "model_content": "The receipt clean_14.png shows a valid business lunch of £11.56 from The Green Kitchen on 2026‑05‑28. The claim was submitted by Alice, meets the meals category limit, fits within the remaining budget and quota, and has no policy conflicts. It has been approved by Chen.",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference clean_14.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 11.56, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"vendor\": \"The Green Kitchen\"}, \"primary_read\": {\"amount\": 11.56, \"category_guess\": \"meals\", \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"field_confidence\": {\"amount\": 1.0, \"category_guess\": 1.0, \"date\": 1.0, \"vendor\": 1.0}, \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"The Green Kitchen\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-7034ccaf378448d89b112cdb8398d3f3"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-9d364d255167459193c2177af6e01513",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9d364d255167459193c2177af6e01513"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11",
+              "name": "inspect_budget_state",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claimant\": \"alice\", \"claimant_quota_remaining_gbp\": 2981.5, \"department\": \"Product\", \"department_remaining_gbp\": 2981.5, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-b15d7e3bf38240d49d7a4e7c0860ba11"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "amount": 11.56,
+                "business_purpose": "Business lunch",
+                "category": "meals",
+                "currency": "GBP",
+                "date": "2026-05-28",
+                "line_items": [
+                  {
+                    "amount": 11.56,
+                    "desc": "Set lunch"
+                  }
+                ],
+                "vendor": "The Green Kitchen"
+              },
+              "id": "chatcmpl-tool-617c3671cc824bc68911ae84df5270b5",
+              "name": "submit_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"alice\", \"ok\": true, \"record\": {\"data\": {\"amount\": 11.56, \"amount_gbp\": 11.56, \"business_purpose\": \"Business lunch\", \"category\": \"meals\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"receipt_ref\": \"wf3-clean_14.png\", \"submitted_by\": \"alice\", \"vendor\": \"The Green Kitchen\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-617c3671cc824bc68911ae84df5270b5"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "reason": "Receipt confirms a legitimate business lunch of 11.56 GBP within meals limit and budget; no policy conflicts.",
+                "record_id": "exp-000015"
+              },
+              "id": "chatcmpl-tool-71dd5af243eb403a963075fefa10c08a",
+              "name": "approve_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"chen\", \"ok\": true, \"record\": {\"data\": {\"amount\": 11.56, \"amount_gbp\": 11.56, \"business_purpose\": \"Business lunch\", \"category\": \"meals\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-05-28\", \"decision_reason\": \"Receipt confirms a legitimate business lunch of 11.56 GBP within meals limit and budget; no policy conflicts.\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 11.56, \"desc\": \"Set lunch\"}], \"receipt_ref\": \"wf3-clean_14.png\", \"reviewed_by\": \"chen\", \"submitted_by\": \"alice\", \"vendor\": \"The Green Kitchen\", \"version\": 2}, \"id\": \"exp-000015\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-71dd5af243eb403a963075fefa10c08a"
+        }
+      ],
+      "tool_calls": [],
+      "tool_results": [],
+      "usage": {
+        "input_tokens": 1751,
+        "output_tokens": 69,
+        "total_tokens": 1820
+      }
+    }
+  ]
+}

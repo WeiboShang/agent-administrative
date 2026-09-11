@@ -1,0 +1,494 @@
+{
+  "schema_version": "5.1",
+  "synthetic_only": true,
+  "cases": {
+    "pilot-wf1-manual-v51": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Dana: Please create two drafts: a 30-minute Zoom check-in with Chen on 2026-08-21 at 10:30, and an expense claim for receipt att-p51-01 from CityCab, GBP 19.20, dated 2026-08-15, for client travel.",
+      "attachments": [
+        {
+          "attachment_id": "att-p51-01",
+          "filename": "pilot-citycab.png",
+          "mime_type": "image/png"
+        }
+      ]
+    },
+    "pilot-wf1-agent-v51": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Fiona: Please arrange a 30-minute Zoom review with Bob tomorrow at 14:00.\n[m2] Fiona: Keep the meeting; no other action is needed.",
+      "attachments": []
+    },
+    "pilot-wf2-manual-v51": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Please arrange a 30-minute planning call with Chen at 15:00. The date is not agreed.",
+      "setup": {
+        "events": []
+      }
+    },
+    "pilot-wf2-agent-v51": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Book Dana and Chen in Orion this Thursday at 09:00 for 60 minutes.",
+      "setup": {
+        "events": [
+          {
+            "title": "Existing planning session",
+            "date": "2026-08-20",
+            "start": "09:00",
+            "end": "09:30",
+            "participants": [
+              "dana"
+            ],
+            "location": "Orion"
+          }
+        ]
+      }
+    },
+    "pilot-wf3-manual-v51": {
+      "workflow": "wf3",
+      "claimant_note": "Please reimburse this client-site taxi receipt as travel.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "clean_8.png"
+      },
+      "setup": {
+        "claims": [
+          {
+            "employee_name": "Bob Rivera",
+            "vendor": "CityCab",
+            "date": "2026-06-06",
+            "amount": 11.16,
+            "currency": "GBP",
+            "category": "travel",
+            "business_purpose": "Client travel",
+            "status": "approved"
+          }
+        ]
+      }
+    },
+    "pilot-wf3-agent-v51": {
+      "workflow": "wf3",
+      "claimant_note": "Approved client dinner exception EXC-P51. Reimburse as meals.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "over_limit_5.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf1-v51-p01-a": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "email",
+      "text": "[m1] Dana: Please schedule a 45-minute supplier-risk review with Chen and Evan in Lyra on 2026-08-24 at 10:30.",
+      "attachments": []
+    },
+    "wf1-v51-p01-b": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Fiona: Please book a 30-minute Zoom call with Bob next Thursday at 16:00 about the operations handover.",
+      "attachments": []
+    },
+    "wf1-v51-p02-a": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "email",
+      "text": "[m1] Alice: Prepare an expense claim for attached receipt att-v51-02a: CityCab, GBP 27.80, dated 2026-08-16, for client travel.",
+      "attachments": [
+        {
+          "attachment_id": "att-v51-02a",
+          "filename": "citycab-v51.png",
+          "mime_type": "image/png"
+        }
+      ]
+    },
+    "wf1-v51-p02-b": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "email",
+      "text": "[m1] Evan: Submit attached invoice att-v51-02b from NorthPeak Hotel, EUR 132.40, dated 2026-08-12, as conference accommodation.",
+      "attachments": [
+        {
+          "attachment_id": "att-v51-02b",
+          "filename": "northpeak-v51.pdf",
+          "mime_type": "application/pdf"
+        }
+      ]
+    },
+    "wf1-v51-p03-a": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Bob: Please arrange a 60-minute forecast review with Chen and Dana next Wednesday. No time has been agreed.",
+      "attachments": []
+    },
+    "wf1-v51-p03-b": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "email",
+      "text": "[m1] Dana: Please set up a 30-minute Zoom vendor call with Evan at 13:30. The day still needs confirmation.",
+      "attachments": []
+    },
+    "wf1-v51-p04-a": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Chen: My password reset is complete.\n[m2] Evan: The maintenance message is FYI only.\n[m3] Dana: HR already recorded my leave.",
+      "attachments": []
+    },
+    "wf1-v51-p04-b": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "email",
+      "text": "[m1] Fiona: Facilities should replace the kitchen light and IT should check the spare monitor. No meeting or reimbursement is requested.",
+      "attachments": []
+    },
+    "wf1-v51-p05-a": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Alice: Schedule a 45-minute Orion review with Chen on 2026-08-25 at 13:00 about the Q4 budget.\n[m2] Alice: Also prepare an expense claim for receipt att-v51-05a: BrightMart, GBP 31.20, dated 2026-08-14, for workshop supplies.",
+      "attachments": [
+        {
+          "attachment_id": "att-v51-05a",
+          "filename": "brightmart-v51.png",
+          "mime_type": "image/png"
+        }
+      ]
+    },
+    "wf1-v51-p05-b": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "email",
+      "text": "[m1] Evan: Create two drafts: a 30-minute Zoom handover with Dana and Fiona on 2026-08-26 at 15:00, and a claim for receipt att-v51-05b from CityCab, GBP 21.50, dated 2026-08-15, for site travel.",
+      "attachments": [
+        {
+          "attachment_id": "att-v51-05b",
+          "filename": "citycab-site-v51.png",
+          "mime_type": "image/png"
+        }
+      ]
+    },
+    "wf1-v51-p06-a": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Dana: Arrange a 30-minute review with Chen this Wednesday at 10:00.\n[m2] Dana: Change of plan: use next Friday at 15:00 on Zoom instead.",
+      "attachments": []
+    },
+    "wf1-v51-p06-b": {
+      "workflow": "wf1",
+      "scenario_now": "2026-08-17T09:00:00",
+      "channel": "chat",
+      "text": "[m1] Alice: Claim receipt att-v51-06b for a GBP 26.00 dinner.\n[m2] Alice: Cancel that expense request; it was personal.\n[m3] Alice: Separately, schedule a 30-minute Zoom audit call with Bob on 2026-08-28 at 14:30.",
+      "attachments": [
+        {
+          "attachment_id": "att-v51-06b",
+          "filename": "personal-v51.png",
+          "mime_type": "image/png"
+        }
+      ]
+    },
+    "wf2-v51-p01-a": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Book Dana and Evan for a 45-minute supplier briefing on 2026-08-24 at 11:00 over Zoom.",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p01-b": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Please arrange a 30-minute launch review with Chen in Lyra tomorrow at 16:00.",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p02-a": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Schedule Dana and Fiona in Vega this Wednesday at 13:00 for 45 minutes.",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p02-b": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Arrange a 60-minute Zoom renewal review with Evan next Friday at 10:00.",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p03-a": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Please arrange a 30-minute controls call with Chen next Tuesday. The time is not agreed.",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p03-b": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Set up a 45-minute launch meeting with Dana at 14:30 in Orion. The date is undecided.",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p04-a": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Could Evan discuss recruitment early next week at 10:30 for 30 minutes on Zoom?",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p04-b": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Arrange a 30-minute forecast call with someone from Finance this Friday at 13:00.",
+      "setup": {
+        "events": []
+      }
+    },
+    "wf2-v51-p05-a": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Book Dana and Chen in Lyra this Thursday at 10:00 for 60 minutes.",
+      "setup": {
+        "events": [
+          {
+            "title": "Existing supplier workshop",
+            "date": "2026-08-20",
+            "start": "10:00",
+            "end": "10:30",
+            "participants": [
+              "dana"
+            ],
+            "location": "Lyra"
+          }
+        ]
+      }
+    },
+    "wf2-v51-p05-b": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "Book Evan and Fiona in Vega this Wednesday at 11:00 for 30 minutes.",
+      "setup": {
+        "events": [
+          {
+            "title": "Existing release review",
+            "date": "2026-08-19",
+            "start": "11:00",
+            "end": "11:30",
+            "participants": [
+              "fiona"
+            ],
+            "location": "Vega"
+          }
+        ]
+      }
+    },
+    "wf2-v51-p06-a": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "[m1] Dana: Schedule Chen, Evan and me this Wednesday at 14:00 for 45 minutes.\n[m2] Dana: Final choice is next Friday at 10:00 in Orion, with the same people.",
+      "setup": {
+        "events": [
+          {
+            "title": "Existing Evan planning",
+            "date": "2026-08-28",
+            "start": "10:00",
+            "end": "10:30",
+            "participants": [
+              "evan"
+            ],
+            "location": "Orion"
+          }
+        ]
+      }
+    },
+    "wf2-v51-p06-b": {
+      "workflow": "wf2",
+      "scenario_now": "2026-08-17T09:00:00",
+      "text": "[m1] Bob: Arrange a 30-minute Zoom audit call tomorrow at 08:30 with Chen and Fiona.\n[m2] Bob: Final time is tomorrow at 09:30 with the same participants.",
+      "setup": {
+        "events": [
+          {
+            "title": "Existing Chen review",
+            "date": "2026-08-18",
+            "start": "09:30",
+            "end": "10:00",
+            "participants": [
+              "chen"
+            ],
+            "location": "Online"
+          }
+        ]
+      }
+    },
+    "wf3-v51-p01-a": {
+      "workflow": "wf3",
+      "claimant_note": "Workshop materials; reimburse as supplies.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "clean_0.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p01-b": {
+      "workflow": "wf3",
+      "claimant_note": "Team lunch during planning; reimburse as meals.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "clean_1.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p02-a": {
+      "workflow": "wf3",
+      "claimant_note": "Client lunch; reimburse as meals.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "clean_2.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p02-b": {
+      "workflow": "wf3",
+      "claimant_note": "Conference breakfast; reimburse as accommodation.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "clean_3.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p03-a": {
+      "workflow": "wf3",
+      "claimant_note": "Workshop supplies; verify the skewed receipt.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "skewed_2.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p03-b": {
+      "workflow": "wf3",
+      "claimant_note": "Prototype supplies; verify the skewed receipt.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "skewed_3.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p04-a": {
+      "workflow": "wf3",
+      "claimant_note": "The submitted image is the only evidence.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "cropped_8.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p04-b": {
+      "workflow": "wf3",
+      "claimant_note": "The submitted image is the only evidence.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "cropped_10.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p05-a": {
+      "workflow": "wf3",
+      "claimant_note": "Approved client dinner exception EXC-5201; reimburse as meals.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "over_limit_0.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p05-b": {
+      "workflow": "wf3",
+      "claimant_note": "Approved recruitment dinner exception EXC-5202; reimburse as meals.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "over_limit_1.png"
+      },
+      "setup": {
+        "claims": []
+      }
+    },
+    "wf3-v51-p06-a": {
+      "workflow": "wf3",
+      "claimant_note": "Please reimburse this client travel receipt.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "clean_4.png"
+      },
+      "setup": {
+        "claims": [
+          {
+            "employee_name": "Bob Rivera",
+            "vendor": "CityCab",
+            "date": "2026-06-24",
+            "amount": 20.23,
+            "currency": "GBP",
+            "category": "travel",
+            "business_purpose": "Previously approved",
+            "status": "approved"
+          }
+        ]
+      }
+    },
+    "wf3-v51-p06-b": {
+      "workflow": "wf3",
+      "claimant_note": "Please reimburse this client travel receipt.",
+      "receipt": {
+        "manifest": "synthetic_v2",
+        "image": "clean_5.png"
+      },
+      "setup": {
+        "claims": [
+          {
+            "employee_name": "Bob Rivera",
+            "vendor": "CityCab",
+            "date": "2026-06-08",
+            "amount": 24.95,
+            "currency": "GBP",
+            "category": "travel",
+            "business_purpose": "Previously approved",
+            "status": "approved"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+.env
+# Local environment and secret material (never commit real values).
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.cer
+*.der
+credentials*.json
+*-credentials.json
+secrets.local/
+# Google Calendar demo credentials (WF2 §K) — throwaway-account OAuth secrets, never commit.
+# Ignore everything under secrets/, then re-include ONLY the committed .example templates.
+# (A bare `!secrets/` would un-ignore the real credentials too — must stay file-scoped.)
+secrets/*
+!secrets/*.example
+.venv/
+__pycache__/
+*.pyc
+# Receipt images: generated datasets are reproducible; evidence is durable local workspace
+# state paired with data/workspace.db and must never become source-controlled user content.
+data/receipt_evidence/
+data/receipts/synthetic/
+data/receipts/cord_sample/
+data/receipts/*.jpg
+data/receipts/*.jpeg
+data/receipts/*.png
+.DS_Store
+# Accidental WSL/Windows redirection target; never source material.
+NUL
+node_modules/
+dist/
+# …except the built SPA, which FastAPI serves: committing it lets the project run without a
+# Node toolchain.
+!frontend-next/dist/
+!frontend-next/dist/**
+build/
+.coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# synthetic_v2 receipt images: regenerable via `python -m backend.evals.receipt_data
+# data/receipts/synthetic_v2 final` (seeded → identical). manifest.jsonl (the gold) is
+# kept. Raw model outputs in data/eval_cache/ ARE committed — scout is retired and they
+# cannot be reproduced.
+data/receipts/synthetic_v2/*.png
+data/receipts/foreign_currency/*.png
+data/receipts/inconsistent/*.png
+# AMI/QMSum transcript samples: re-downloadable via evals.external_ami; third-party corpus
+# under a research licence — not ours to redistribute.
+data/transcripts/
+
+# Live workspace DB — user state (booked meetings, claims, triaged threads), not source.
+# Delete it to reset to the seeded demo world; see backend/scripts/reset_workspace.py
+data/workspace.db*
+# Local single-reviewer walkthrough progress. Formal summaries are appended separately to
+# data/eval_results/human_v4.jsonl; resumable session snapshots contain timing metadata and
+# must not become source-controlled study data.
+data/eval_sessions/

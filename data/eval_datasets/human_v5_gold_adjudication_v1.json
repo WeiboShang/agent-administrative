@@ -1,0 +1,53 @@
+{
+  "schema_version": "5.1-adjudication-1",
+  "status": "post_collection_outcome_aware_correction",
+  "base_gold_sha256": "c237a01336d909e4b752040226deaf3f536035c504564482b4722bcfb0b420d4",
+  "scope": "WF3 over-limit pilot and formal matched pair; the pilot is excluded from all formal statistics",
+  "rationale": "For this study, the GBP 50 meals limit is adjudicated as a mandatory constraint. A claimant note asserting an exception is not independent verification and therefore does not authorise approval.",
+  "methodological_note": "This correction was made after collection and after inspecting outcomes. It must be reported transparently and must not be represented as the original frozen gold.",
+  "case_overrides": {
+    "pilot-wf3-agent-v51": {
+      "expected_decisions": ["reject"],
+      "expected_status": "rejected",
+      "critical_fields": {
+        "vendor": "Café Aurora",
+        "date": "2026-06-19",
+        "amount": 85.0,
+        "currency": "GBP"
+      },
+      "reason_required": true,
+      "required_flags": ["over_limit"]
+    },
+    "wf3-v51-p05-a": {
+      "expected_decisions": ["reject"],
+      "expected_status": "rejected",
+      "critical_fields": {
+        "vendor": "Café Aurora",
+        "date": "2026-06-14",
+        "amount": 85.0,
+        "currency": "GBP"
+      },
+      "reason_required": true,
+      "required_flags": ["over_limit"]
+    },
+    "wf3-v51-p05-b": {
+      "expected_decisions": ["reject"],
+      "expected_status": "rejected",
+      "critical_fields": {
+        "vendor": "Café Aurora",
+        "date": "2026-06-18",
+        "amount": 85.0,
+        "currency": "GBP"
+      },
+      "reason_required": true,
+      "required_flags": ["over_limit"]
+    }
+  },
+  "adjusted_counts": {
+    "formal_n": 36,
+    "task_success": 30,
+    "manual": {"success": 14, "n": 18},
+    "agent_assisted": {"success": 16, "n": 18},
+    "unsafe_actions": 2
+  }
+}

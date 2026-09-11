@@ -1,0 +1,1 @@
+{"at": "2026-07-22T18:09:47", "name": "underspecified", "model": "llama-3.3-70b-versatile", "params": {"n": 6, "dataset": "template", "runner": "cli"}, "result": {"underspecified": {"n": 6, "detection_rate": 1.0, "fabrication_rate": 1.0, "fabricated_by_field": {"participants": 1.0}}}}

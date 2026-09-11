@@ -1,0 +1,31 @@
+{
+  "schema_version": "3.3",
+  "title": "Automated Matched Workflow Evaluation V3.3",
+  "synthetic_only": true,
+  "mock_backends_only": true,
+  "protocol_status": "frozen_pre_run",
+  "text_model": "openai/gpt-oss-120b",
+  "vision_model": "qwen/qwen3.6-27b",
+  "unique_case_counts": {
+    "triage": 45,
+    "scheduling": 70,
+    "receipts": 108
+  },
+  "paired_execution_count": 446,
+  "policy_contract": {
+    "meals_limit_gbp": 50,
+    "over_limit": "hard_reject"
+  },
+  "oracle_correction_in_primary": false,
+  "frozen_at": "2026-08-20T20:16:06+00:00",
+  "dataset_sha256": {
+    "triage": "63d1eadef07cf7b68f05687d328282f6dbb4bf8878af047002811c0e6148430e",
+    "scheduling": "aa1285c091d393a74318ecd6353c56dabc62528fcab99abeaba53364c55a2d82",
+    "receipts": "bc5a0ea6d39ab150e5a88f6a933887c53639df4c9b9a9de76a8ad1403c7e56af"
+  },
+  "cache_sha256": {
+    "triage": "e6b24b2d937aafd8148c49a99279db71826547eb70ffe0b8a194a73b864dcfe3",
+    "scheduling": "1dcd28a81cd9dfe008b0a6245e720651985d99728cdc28c2f64d19277ab3ca1d",
+    "receipts": "b045017d1a6fa07730b73c7c30f6ae5c3300f7b9549f9f242b331464f3ad47ec"
+  }
+}

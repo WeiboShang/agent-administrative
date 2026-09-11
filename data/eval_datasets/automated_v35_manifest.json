@@ -1,0 +1,49 @@
+{
+  "schema_version": "3.5",
+  "title": "WF2 Strict Final-State and Mechanism Evaluation V3.5",
+  "protocol_status": "sealed_pre_run",
+  "synthetic_only": true,
+  "mock_backends_only": true,
+  "text_model": "openai/gpt-oss-120b",
+  "primary_suite": "WF2-E2E-70",
+  "secondary_suite": "WF2-MECH-20",
+  "unique_case_counts": {
+    "wf2_e2e": 70,
+    "wf2_mechanism": 20
+  },
+  "paired_e2e_execution_count": 140,
+  "oracle_labels_used_during_e2e_execution": false,
+  "mechanism_headline_eligible": false,
+  "source_version": "matched-v3.4-source-sha256:9ecc0b4c618842b629c001ba18d61ad6a1a7d2f264c69b817622bf872ab96dcf",
+  "dataset_sha256": {
+    "scheduling": "2d41f8345c0a7b2cfdbe64ab8a53d3e782d1fb88335a0903cd2168c0feb56f97",
+    "mechanism": "fc497962f6b55b8ac5c34504ebb9cb0329e9bf537febecf43227c0c4416227e4",
+    "temporal_contract": "14a3f997d290c000be2d41a544ba9438dc8b5136baabee7bf11935d85fdb3850",
+    "date_audit": "2faf5c8bc641a8b46665c7df3457e20e3dd57f8de398e53c25ecf7931637b259"
+  },
+  "cache_sha256": "eb630b61f15b520eea1e03c6ef2710e8501c9bdd250be60e5a6ee4a68f161271",
+  "scorer_sha256": "b1afe4e5a18fbc80716989a7f646a9db27c8bd8b01ba33b3363cb1bfb95c95aa",
+  "gold_independence_sha256": "dae24f6c63fee8818f8b36f9d9baa1206753bf7da31967c4629deffa63b46acb",
+  "task_defining_fields": [
+    "organizer",
+    "participants_exact_set",
+    "date",
+    "start_or_independent_feasible_set",
+    "end",
+    "duration_minutes",
+    "mode",
+    "required_room",
+    "booked_status",
+    "no_extra_mutation"
+  ],
+  "excluded_claims": [
+    "update_cancel_reuse_effectiveness",
+    "recurrence",
+    "large_participant_sets",
+    "room_capacity_or_equipment",
+    "preference_ranking_quality",
+    "external_validity",
+    "title_or_agenda_semantics"
+  ],
+  "sealed_at": "2026-08-23T13:14:52+00:00"
+}

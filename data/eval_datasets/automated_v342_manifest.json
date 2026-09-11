@@ -1,0 +1,41 @@
+{
+  "schema_version": "3.4.2",
+  "title": "Automated Matched Workflow Evaluation V3.4.2",
+  "protocol_status": "sealed_pre_run",
+  "synthetic_only": true,
+  "mock_backends_only": true,
+  "text_model": "openai/gpt-oss-120b",
+  "vision_model": "qwen/qwen3.6-27b",
+  "wf3_critical_read_protocol": {
+    "coverage": "all_108_receipts",
+    "fields": [
+      "vendor",
+      "date",
+      "amount",
+      "currency"
+    ],
+    "reasoning": "provider_default",
+    "gold_or_meta_available_to_model": false,
+    "prompt_sha256": "c6ff115625ee8c7006b3abcb188b8dc4b73b7796a2b7cb53f707bd2158c0a961"
+  },
+  "unique_case_counts": {
+    "triage": 45,
+    "scheduling": 70,
+    "receipts": 108
+  },
+  "paired_execution_count": 446,
+  "oracle_labels_used_during_execution": false,
+  "source_version": "matched-v3.4-source-sha256:50ea9ebfa9b0409fb0a274215e6fc4a036e2ca3726ed68216bd19cc502c05e9d",
+  "sealed_at": "2026-08-23T10:06:16+00:00",
+  "dataset_sha256": {
+    "triage": "6f28277af40851e0ed70e6dfea4b017dcf45a101719f7cc86c0e96b8fee907b6",
+    "scheduling": "63f289b5e02d30ff50a55cc5091f30957436db3bcb3e29ec8b25f624ac385787",
+    "receipts": "bc5a0ea6d39ab150e5a88f6a933887c53639df4c9b9a9de76a8ad1403c7e56af"
+  },
+  "cache_sha256": {
+    "triage": "43d331b7209eb6a4eb3e572fc2dffc954f68c83aad433754fc5675a78a74b1f7",
+    "scheduling": "1dcd28a81cd9dfe008b0a6245e720651985d99728cdc28c2f64d19277ab3ca1d",
+    "receipts_primary": "b045017d1a6fa07730b73c7c30f6ae5c3300f7b9549f9f242b331464f3ad47ec",
+    "receipts_critical": "dd8e9a337e56e8841320cd3237e591089224db691d613b68c55d41aaf663129b"
+  }
+}

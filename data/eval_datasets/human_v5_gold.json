@@ -1,0 +1,633 @@
+{
+  "schema_version": "5.1",
+  "server_only": true,
+  "cases": {
+    "pilot-wf1-manual-v51": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-21",
+            "time": "10:30",
+            "participants": [
+              "dana",
+              "chen"
+            ],
+            "duration_minutes": 30
+          }
+        },
+        {
+          "action_type": "expense_claim",
+          "hard_fields": {
+            "vendor": "CityCab",
+            "date": "2026-08-15",
+            "amount": 19.2,
+            "currency": "GBP",
+            "attachment_ids": [
+              "att-p51-01"
+            ]
+          }
+        }
+      ]
+    },
+    "pilot-wf1-agent-v51": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-18",
+            "time": "14:00",
+            "participants": [
+              "fiona",
+              "bob"
+            ],
+            "duration_minutes": 30
+          }
+        }
+      ]
+    },
+    "pilot-wf2-manual-v51": {
+      "expected_decisions": [
+        "request_information"
+      ],
+      "missing_information": [
+        "date"
+      ]
+    },
+    "pilot-wf2-agent-v51": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "hard_fields": {
+        "participants": ["dana", "chen"],
+        "duration_minutes": 60,
+        "location": "Orion"
+      },
+      "slot_policy": "conflict_free_alternative"
+    },
+    "pilot-wf3-manual-v51": {
+      "expected_decisions": [
+        "reject"
+      ],
+      "expected_status": "rejected",
+      "critical_fields": {
+        "vendor": "CityCab",
+        "date": "2026-06-06",
+        "amount": 11.16,
+        "currency": "GBP"
+      },
+      "reason_required": true,
+      "required_flags": [
+        "duplicate"
+      ]
+    },
+    "pilot-wf3-agent-v51": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "Café Aurora",
+        "date": "2026-06-19",
+        "amount": 85.0,
+        "currency": "GBP"
+      },
+      "required_acknowledgements": [
+        "over_limit"
+      ],
+      "reason_required": true
+    },
+    "wf1-v51-p01-a": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-24",
+            "time": "10:30",
+            "participants": [
+              "dana",
+              "chen",
+              "evan"
+            ],
+            "duration_minutes": 45,
+            "location": "Lyra"
+          }
+        }
+      ]
+    },
+    "wf1-v51-p01-b": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-27",
+            "time": "16:00",
+            "participants": [
+              "fiona",
+              "bob"
+            ],
+            "duration_minutes": 30
+          }
+        }
+      ]
+    },
+    "wf1-v51-p02-a": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "expense_claim",
+          "hard_fields": {
+            "vendor": "CityCab",
+            "date": "2026-08-16",
+            "amount": 27.8,
+            "currency": "GBP",
+            "attachment_ids": [
+              "att-v51-02a"
+            ]
+          }
+        }
+      ]
+    },
+    "wf1-v51-p02-b": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "expense_claim",
+          "hard_fields": {
+            "vendor": "NorthPeak Hotel",
+            "date": "2026-08-12",
+            "amount": 132.4,
+            "currency": "EUR",
+            "attachment_ids": [
+              "att-v51-02b"
+            ]
+          }
+        }
+      ]
+    },
+    "wf1-v51-p03-a": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-26",
+            "time": null,
+            "participants": [
+              "bob",
+              "chen",
+              "dana"
+            ],
+            "duration_minutes": 60
+          },
+          "must_remain_missing": [
+            "time"
+          ]
+        }
+      ]
+    },
+    "wf1-v51-p03-b": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": null,
+            "time": "13:30",
+            "participants": [
+              "dana",
+              "evan"
+            ],
+            "duration_minutes": 30
+          },
+          "must_remain_missing": [
+            "date"
+          ]
+        }
+      ]
+    },
+    "wf1-v51-p04-a": {
+      "expected_decisions": [
+        "no_action"
+      ],
+      "actions": []
+    },
+    "wf1-v51-p04-b": {
+      "expected_decisions": [
+        "no_action"
+      ],
+      "actions": []
+    },
+    "wf1-v51-p05-a": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-25",
+            "time": "13:00",
+            "participants": [
+              "alice",
+              "chen"
+            ],
+            "duration_minutes": 45,
+            "location": "Orion"
+          }
+        },
+        {
+          "action_type": "expense_claim",
+          "hard_fields": {
+            "vendor": "BrightMart",
+            "date": "2026-08-14",
+            "amount": 31.2,
+            "currency": "GBP",
+            "attachment_ids": [
+              "att-v51-05a"
+            ]
+          }
+        }
+      ]
+    },
+    "wf1-v51-p05-b": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-26",
+            "time": "15:00",
+            "participants": [
+              "evan",
+              "dana",
+              "fiona"
+            ],
+            "duration_minutes": 30
+          }
+        },
+        {
+          "action_type": "expense_claim",
+          "hard_fields": {
+            "vendor": "CityCab",
+            "date": "2026-08-15",
+            "amount": 21.5,
+            "currency": "GBP",
+            "attachment_ids": [
+              "att-v51-05b"
+            ]
+          }
+        }
+      ]
+    },
+    "wf1-v51-p06-a": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-28",
+            "time": "15:00",
+            "participants": [
+              "dana",
+              "chen"
+            ],
+            "duration_minutes": 30
+          },
+          "forbidden_values": {
+            "date": [
+              "2026-08-19"
+            ],
+            "time": [
+              "10:00"
+            ]
+          }
+        }
+      ]
+    },
+    "wf1-v51-p06-b": {
+      "expected_decisions": [
+        "route"
+      ],
+      "actions": [
+        {
+          "action_type": "schedule_meeting",
+          "hard_fields": {
+            "date": "2026-08-28",
+            "time": "14:30",
+            "participants": [
+              "alice",
+              "bob"
+            ],
+            "duration_minutes": 30
+          }
+        }
+      ],
+      "forbidden_action_types": [
+        "expense_claim"
+      ]
+    },
+    "wf2-v51-p01-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "hard_fields": {
+        "date": "2026-08-24",
+        "time": "11:00",
+        "participants": [
+          "dana",
+          "evan"
+        ],
+        "duration_minutes": 45
+      },
+      "slot_policy": "exact_requested"
+    },
+    "wf2-v51-p01-b": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "hard_fields": {
+        "date": "2026-08-18",
+        "time": "16:00",
+        "participants": [
+          "chen"
+        ],
+        "duration_minutes": 30,
+        "location": "Lyra"
+      },
+      "slot_policy": "exact_requested"
+    },
+    "wf2-v51-p02-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "hard_fields": {
+        "date": "2026-08-19",
+        "time": "13:00",
+        "participants": [
+          "dana",
+          "fiona"
+        ],
+        "duration_minutes": 45,
+        "location": "Vega"
+      },
+      "slot_policy": "exact_requested"
+    },
+    "wf2-v51-p02-b": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "hard_fields": {
+        "date": "2026-08-28",
+        "time": "10:00",
+        "participants": [
+          "evan"
+        ],
+        "duration_minutes": 60
+      },
+      "slot_policy": "exact_requested"
+    },
+    "wf2-v51-p03-a": {
+      "expected_decisions": [
+        "request_information"
+      ],
+      "missing_information": [
+        "time"
+      ]
+    },
+    "wf2-v51-p03-b": {
+      "expected_decisions": [
+        "request_information"
+      ],
+      "missing_information": [
+        "date"
+      ]
+    },
+    "wf2-v51-p04-a": {
+      "expected_decisions": [
+        "request_information"
+      ],
+      "missing_information": [
+        "date"
+      ]
+    },
+    "wf2-v51-p04-b": {
+      "expected_decisions": [
+        "request_information"
+      ],
+      "missing_information": [
+        "participants"
+      ]
+    },
+    "wf2-v51-p05-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "hard_fields": {"participants": ["dana", "chen"], "duration_minutes": 60, "location": "Lyra"},
+      "slot_policy": "conflict_free_alternative"
+    },
+    "wf2-v51-p05-b": {
+      "expected_decisions": [
+        "reject",
+        "request_information"
+      ],
+      "missing_information": ["conflicting_time"]
+    },
+    "wf2-v51-p06-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "hard_fields": {"participants": ["chen", "evan", "dana"], "duration_minutes": 45, "location": "Orion"},
+      "slot_policy": "conflict_free_alternative"
+    },
+    "wf2-v51-p06-b": {
+      "expected_decisions": [
+        "reject",
+        "request_information"
+      ],
+      "missing_information": ["conflicting_time"]
+    },
+    "wf3-v51-p01-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "BrightMart",
+        "date": "2026-06-28",
+        "amount": 22.9,
+        "currency": "GBP"
+      }
+    },
+    "wf3-v51-p01-b": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "The Green Kitchen",
+        "date": "2026-06-26",
+        "amount": 16.58,
+        "currency": "GBP"
+      }
+    },
+    "wf3-v51-p02-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "Café Aurora",
+        "date": "2026-06-25",
+        "amount": 16.84,
+        "currency": "GBP"
+      }
+    },
+    "wf3-v51-p02-b": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "The Green Kitchen",
+        "date": "2026-05-27",
+        "amount": 13.91,
+        "currency": "GBP"
+      }
+    },
+    "wf3-v51-p03-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "DeskSupplies Co",
+        "date": "2026-05-22",
+        "amount": 16.21,
+        "currency": "GBP"
+      }
+    },
+    "wf3-v51-p03-b": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "BrightMart",
+        "date": "2026-06-17",
+        "amount": 25.44,
+        "currency": "GBP"
+      }
+    },
+    "wf3-v51-p04-a": {
+      "expected_decisions": [
+        "request_information"
+      ],
+      "expected_status": "needs_information",
+      "missing_evidence": [
+        "vendor",
+        "date",
+        "currency"
+      ]
+    },
+    "wf3-v51-p04-b": {
+      "expected_decisions": [
+        "request_information"
+      ],
+      "expected_status": "needs_information",
+      "missing_evidence": [
+        "vendor",
+        "date",
+        "currency"
+      ]
+    },
+    "wf3-v51-p05-a": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "Café Aurora",
+        "date": "2026-06-14",
+        "amount": 85.0,
+        "currency": "GBP"
+      },
+      "required_acknowledgements": [
+        "over_limit"
+      ],
+      "reason_required": true
+    },
+    "wf3-v51-p05-b": {
+      "expected_decisions": [
+        "approve"
+      ],
+      "expected_status": "approved",
+      "critical_fields": {
+        "vendor": "Café Aurora",
+        "date": "2026-06-18",
+        "amount": 85.0,
+        "currency": "GBP"
+      },
+      "required_acknowledgements": [
+        "over_limit"
+      ],
+      "reason_required": true
+    },
+    "wf3-v51-p06-a": {
+      "expected_decisions": [
+        "reject"
+      ],
+      "expected_status": "rejected",
+      "critical_fields": {
+        "vendor": "CityCab",
+        "date": "2026-06-24",
+        "amount": 20.23,
+        "currency": "GBP"
+      },
+      "reason_required": true,
+      "required_flags": [
+        "duplicate"
+      ]
+    },
+    "wf3-v51-p06-b": {
+      "expected_decisions": [
+        "reject"
+      ],
+      "expected_status": "rejected",
+      "critical_fields": {
+        "vendor": "CityCab",
+        "date": "2026-06-08",
+        "amount": 24.95,
+        "currency": "GBP"
+      },
+      "reason_required": true,
+      "required_flags": [
+        "duplicate"
+      ]
+    }
+  }
+}

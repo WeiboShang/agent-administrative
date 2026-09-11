@@ -1,0 +1,32 @@
+{
+  "error": null,
+  "input_tokens": 627,
+  "model_turns": 1,
+  "output": "No specific date was provided—only “early next week.” Since the request does not include a resolvable date, I cannot schedule the meeting. No changes have been made to the calendar.",
+  "output_tokens": 83,
+  "runtime_seconds": 2.397809843001596,
+  "stop_reason": "final_response",
+  "tool_calls": [],
+  "total_tokens": 710,
+  "trace": [
+    {
+      "elapsed_seconds": 2.397809843001596,
+      "finish_reason": "stop",
+      "iteration": 1,
+      "model_content": "No specific date was provided—only “early next week.” Since the request does not include a resolvable date, I cannot schedule the meeting. No changes have been made to the calendar.",
+      "model_input": [
+        {
+          "content": "Act as the delegated scheduling assistant for organiser Alice. Resolve people and inspect current calendar state before creating an event. If the request gives a date but omits a time, choose an available in-hours slot on that date. If the date is unresolved, the text is not an actionable meeting request, or an explicitly requested exact slot conflicts, leave state unchanged. Do not choose a different slot when an exact requested time is unavailable. Otherwise create exactly one event and then give a final response.\n\nScheduling request:\nCould we grab the Orion room for the sprint review sometime early next week at 14:30, Bob Rivera? We'll only need about 30 minutes.",
+          "role": "user"
+        }
+      ],
+      "tool_calls": [],
+      "tool_results": [],
+      "usage": {
+        "input_tokens": 627,
+        "output_tokens": 83,
+        "total_tokens": 710
+      }
+    }
+  ]
+}

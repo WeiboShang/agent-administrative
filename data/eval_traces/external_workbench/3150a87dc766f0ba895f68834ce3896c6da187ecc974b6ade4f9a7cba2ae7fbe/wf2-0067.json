@@ -1,0 +1,32 @@
+{
+  "error": null,
+  "input_tokens": 615,
+  "model_turns": 1,
+  "output": "No meeting was scheduled as the request does not contain a meeting request.",
+  "output_tokens": 35,
+  "runtime_seconds": 1.6218561889982084,
+  "stop_reason": "final_response",
+  "tool_calls": [],
+  "total_tokens": 650,
+  "trace": [
+    {
+      "elapsed_seconds": 1.6218561889982084,
+      "finish_reason": "stop",
+      "iteration": 1,
+      "model_content": "No meeting was scheduled as the request does not contain a meeting request.",
+      "model_input": [
+        {
+          "content": "Act as the delegated scheduling assistant for organiser Alice. Resolve people and inspect current calendar state before creating an event. If the request gives a date but omits a time, choose an available in-hours slot on that date. If the date is unresolved, the text is not an actionable meeting request, or an explicitly requested exact slot conflicts, leave state unchanged. Do not choose a different slot when an exact requested time is unavailable. Otherwise create exactly one event and then give a final response.\n\nScheduling request:\nThanks Bob Rivera, the notes on the Q3 budget look great — nothing needed from me.",
+          "role": "user"
+        }
+      ],
+      "tool_calls": [],
+      "tool_results": [],
+      "usage": {
+        "input_tokens": 615,
+        "output_tokens": 35,
+        "total_tokens": 650
+      }
+    }
+  ]
+}

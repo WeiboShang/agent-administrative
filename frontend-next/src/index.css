@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Dark mode is class-driven (a toggle stamps .dark on <html>); default follows the OS.
+   The same semantic tokens drive light and dark themes. */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* neutrals — zinc with a faint cool bias; text tokens darkened after review */
+  --canvas: #fbfbfc;
+  --surface: #ffffff;
+  --surface-2: #f6f6f8;
+  --surface-3: #f0f0f3;
+  --line: #ececef;
+  --line-strong: #e0e0e4;
+  --ink: #18181b;
+  --ink-2: #3f3f46;
+  --ink-3: #71717a;
+  /* accent — indigo */
+  --accent: #5b5bd6;
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-ring: color-mix(in srgb, var(--accent) 32%, transparent);
+  /* semantic — status only, never the accent */
+  --ok: #15803d;
+  --ok-soft: color-mix(in srgb, #22c55e 13%, transparent);
+  --warn: #b45309;
+  --warn-soft: color-mix(in srgb, #f59e0b 15%, transparent);
+  --bad: #be123c;
+  --bad-soft: color-mix(in srgb, #f43f5e 13%, transparent);
+  --radius: 8px;
+}
+
+.dark {
+  --canvas: #0b0b0e;
+  --surface: #141417;
+  --surface-2: #1b1b1f;
+  --surface-3: #212127;
+  --line: #26262b;
+  --line-strong: #33333a;
+  --ink: #ededef;
+  --ink-2: #b4b4bc;
+  --ink-3: #8a8a93;
+  --accent: #7c7ce8;
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --bad: #fb7185;
+}
+
+/* map palette → Tailwind theme so utilities exist: bg-surface, text-ink-2, border-line,
+   text-accent, bg-warn-soft, … */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --font-sans: "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+/* These MUST live in @layer base. Unlayered CSS outranks every cascade layer, so a bare
+   `* { border-color }` here silently beat all of Tailwind's `border-*` utilities (which sit
+   in @layer utilities) — every border-accent / border-bad / border-warn / border-transparent
+   in the app resolved to the neutral hairline. Layering restores normal precedence. */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Tailwind v4 defaults border-color to currentColor; make the hairline the default instead */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--line);
+  }
+}

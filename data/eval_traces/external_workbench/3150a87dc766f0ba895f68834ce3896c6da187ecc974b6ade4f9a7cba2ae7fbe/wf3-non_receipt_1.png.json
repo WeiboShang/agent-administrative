@@ -1,0 +1,119 @@
+{
+  "error": null,
+  "input_tokens": 1317,
+  "model_turns": 2,
+  "output": "The evidence for non_receipt_1.png does not contain a valid receipt (no amount, date, vendor, and it is flagged as “not a receipt”). Consequently, no expense claim can be created, and no approval or rejection action is taken.",
+  "output_tokens": 118,
+  "runtime_seconds": 5.521015881000494,
+  "stop_reason": "final_response",
+  "tool_calls": [
+    {
+      "arguments": {},
+      "name": "read_receipt_evidence",
+      "observation": {
+        "frozen_evidence": {
+          "critical_read": {
+            "amount": null,
+            "currency": null,
+            "date": null,
+            "vendor": null
+          },
+          "primary_read": {
+            "amount": null,
+            "not_a_receipt": true,
+            "vendor": null
+          }
+        },
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-d5f3a580ce5946f7b2d7a4d96108484a"
+    }
+  ],
+  "total_tokens": 1435,
+  "trace": [
+    {
+      "elapsed_seconds": 2.1120938349995413,
+      "finish_reason": "tool_calls",
+      "iteration": 1,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference non_receipt_1.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-d5f3a580ce5946f7b2d7a4d96108484a",
+          "name": "read_receipt_evidence",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "read_receipt_evidence",
+          "observation": {
+            "frozen_evidence": {
+              "critical_read": {
+                "amount": null,
+                "currency": null,
+                "date": null,
+                "vendor": null
+              },
+              "primary_read": {
+                "amount": null,
+                "not_a_receipt": true,
+                "vendor": null
+              }
+            },
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-d5f3a580ce5946f7b2d7a4d96108484a"
+        }
+      ],
+      "usage": {
+        "input_tokens": 614,
+        "output_tokens": 45,
+        "total_tokens": 659
+      }
+    },
+    {
+      "elapsed_seconds": 5.521015881000494,
+      "finish_reason": "stop",
+      "iteration": 2,
+      "model_content": "The evidence for non_receipt_1.png does not contain a valid receipt (no amount, date, vendor, and it is flagged as “not a receipt”). Consequently, no expense claim can be created, and no approval or rejection action is taken.",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference non_receipt_1.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-d5f3a580ce5946f7b2d7a4d96108484a",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": null, \"currency\": null, \"date\": null, \"vendor\": null}, \"primary_read\": {\"amount\": null, \"not_a_receipt\": true, \"vendor\": null}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-d5f3a580ce5946f7b2d7a4d96108484a"
+        }
+      ],
+      "tool_calls": [],
+      "tool_results": [],
+      "usage": {
+        "input_tokens": 703,
+        "output_tokens": 73,
+        "total_tokens": 776
+      }
+    }
+  ]
+}

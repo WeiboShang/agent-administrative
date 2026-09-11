@@ -1,0 +1,61 @@
+{
+  "authoritative_boundaries": {
+    "wf1": "v3.4.3",
+    "wf2": "v3.5",
+    "wf3": "v3.4.3"
+  },
+  "case_counts": {
+    "all": 223,
+    "wf1": 45,
+    "wf2": 70,
+    "wf3": 108
+  },
+  "comparison": "case-aligned supplementary method comparison",
+  "configuration": {
+    "autonomous_execution": true,
+    "formal_concurrency": 1,
+    "max_execution_seconds": 600.0,
+    "max_iterations": 20,
+    "model": "openai/gpt-oss-120b",
+    "provider": "openrouter",
+    "reasoning_effort": "low",
+    "temperature": 0
+  },
+  "formal_execution_executed": false,
+  "formal_source_file": "data/eval_datasets/external_workbench_sources.jsonl",
+  "formal_source_file_sha256": "4e9c1d24cb54bc530f2f9f73d7ab94b35310ea412f751816cef2195fc18b2da8",
+  "formal_source_rows_sha256": "7bcd7a24d167f7853327c5240d132a992247ceae547b45fddb7946d9af3c67a4",
+  "implementation_files": {
+    "backend/evals/external_workbench_agent.py": "65170d2f6f839324f7b7f79b465c97118ec3b1a5259d22164f5c034347e9359c",
+    "backend/evals/external_workbench_cases.py": "189cd1888d19502a4cc8e3ee77d212e86edd7c919631f78a2c4e0aef4e3cae84",
+    "backend/evals/external_workbench_protocol.py": "4002eeae9badcd59a752c9482dc0d8d8a8dd78cdd3ead594ca11fa900045a2c0",
+    "backend/evals/external_workbench_tools.py": "b4d0613a9ba94914c2bf79186854acdaaaacb0288c783bf43d60e22ac88ab9e1",
+    "backend/evals/run_external_workbench.py": "ab4ff1a64198399b5e1ea51804108a59563796bd5ca7ffa58a7e9a95c2ec1960"
+  },
+  "implementation_sha256": "e3ebd50e10471ac95458e028b5d23de1521ca7751b55a186ca80b19dc2242e2e",
+  "method": "WorkBench-style tool-using external-method baseline",
+  "protocol_document_sha256": "488cf319b20355903de5bb4ad091d464e7c90a0819835a8f257808c99770cddb",
+  "requires_explicit_confirm_formal": true,
+  "schema_version": "external_workbench_protocol_v1",
+  "source_inputs": {
+    "data/eval_cache/receipts_qwen3.6-27b_critical_v342.jsonl": "dd8e9a337e56e8841320cd3237e591089224db691d613b68c55d41aaf663129b",
+    "data/eval_cache/receipts_qwen3.6-27b_synthetic_v2.jsonl": "b045017d1a6fa07730b73c7c30f6ae5c3300f7b9549f9f242b331464f3ad47ec",
+    "data/eval_datasets/scheduling_v35.jsonl": "2d41f8345c0a7b2cfdbe64ab8a53d3e782d1fb88335a0903cd2168c0feb56f97",
+    "data/eval_datasets/triage_v34.jsonl": "6f28277af40851e0ed70e6dfea4b017dcf45a101719f7cc86c0e96b8fee907b6",
+    "data/receipts/synthetic_v2/manifest.jsonl": "bc5a0ea6d39ab150e5a88f6a933887c53639df4c9b9a9de76a8ad1403c7e56af"
+  },
+  "status": "prepared_not_executed",
+  "system_prompt_template": "Today's date is {weekday}, {date} and the current time is {time}. Remember the current date and time when completing tasks. Meetings must not start before 9am or end after 6pm. This is an isolated synthetic evaluation workspace. Do not ask for confirmation before executing actions. Execute actions immediately and continue until the task is fully complete. Do not stop after a search or lookup step.",
+  "system_prompt_template_sha256": "e0ef9130aa1aaae58643afc70e9d86e37a71c7cf1b5364124b9011e7f276bce0",
+  "tool_schema_sha256": {
+    "wf1": "664fac34f019f3d678f56f55098460dcfbac5569514cdaff9d988b5fe7cb1e89",
+    "wf2": "a83a0cc65f7809890fc448665ffc1ae67e7957ad18852a824c2ca83a10c0fd5d",
+    "wf3": "f524a585842ec0e459ad4fa3eb912bf0594574970e06b58b70a993c1c058e798"
+  },
+  "workbench": {
+    "commit": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+    "license": "MIT",
+    "repository": "https://github.com/olly-styles/WorkBench",
+    "source_function": "src/evals/agent.py::run_agent_structured"
+  }
+}

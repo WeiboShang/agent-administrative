@@ -1,0 +1,435 @@
+{
+  "schema_version": "5.0",
+  "title": "Controlled Single-Reviewer Evaluation V5: Manual vs Agent-Assisted",
+  "seed": 20260820,
+  "draft_mode": "frozen_actual_agent_replay",
+  "text_model": "openai/gpt-oss-120b",
+  "vision_model": "qwen/qwen3.6-27b",
+  "reviewers": 1,
+  "formal_case_count": 36,
+  "pilot_case_count": 6,
+  "protocol_status": "pre_freeze_implementation",
+  "cases": [
+    {
+      "case_id": "pilot-wf1-manual-v5",
+      "workflow": "wf1",
+      "pair_id": "pilot-wf1-v5",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "pilot",
+      "pilot": true,
+      "presentation_order": 1
+    },
+    {
+      "case_id": "pilot-wf1-agent-v5",
+      "workflow": "wf1",
+      "pair_id": "pilot-wf1-v5",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "pilot",
+      "pilot": true,
+      "presentation_order": 2
+    },
+    {
+      "case_id": "pilot-wf2-manual-v5",
+      "workflow": "wf2",
+      "pair_id": "pilot-wf2-v5",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "pilot",
+      "pilot": true,
+      "presentation_order": 3
+    },
+    {
+      "case_id": "pilot-wf2-agent-v5",
+      "workflow": "wf2",
+      "pair_id": "pilot-wf2-v5",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "pilot",
+      "pilot": true,
+      "presentation_order": 4
+    },
+    {
+      "case_id": "pilot-wf3-manual-v5",
+      "workflow": "wf3",
+      "pair_id": "pilot-wf3-v5",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "pilot",
+      "pilot": true,
+      "presentation_order": 5
+    },
+    {
+      "case_id": "pilot-wf3-agent-v5",
+      "workflow": "wf3",
+      "pair_id": "pilot-wf3-v5",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "pilot",
+      "pilot": true,
+      "presentation_order": 6
+    },
+    {
+      "case_id": "wf1-v5-p01-a",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p01",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 19
+    },
+    {
+      "case_id": "wf1-v5-p01-b",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p01",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 4
+    },
+    {
+      "case_id": "wf1-v5-p02-a",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p02",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 28
+    },
+    {
+      "case_id": "wf1-v5-p02-b",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p02",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 10
+    },
+    {
+      "case_id": "wf1-v5-p03-a",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p03",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 1
+    },
+    {
+      "case_id": "wf1-v5-p03-b",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p03",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 22
+    },
+    {
+      "case_id": "wf1-v5-p04-a",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p04",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 13
+    },
+    {
+      "case_id": "wf1-v5-p04-b",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p04",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 31
+    },
+    {
+      "case_id": "wf1-v5-p05-a",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p05",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 7
+    },
+    {
+      "case_id": "wf1-v5-p05-b",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p05",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 25
+    },
+    {
+      "case_id": "wf1-v5-p06-a",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p06",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 34
+    },
+    {
+      "case_id": "wf1-v5-p06-b",
+      "workflow": "wf1",
+      "pair_id": "wf1-v5-p06",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 16
+    },
+    {
+      "case_id": "wf2-v5-p01-a",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p01",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 20
+    },
+    {
+      "case_id": "wf2-v5-p01-b",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p01",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 2
+    },
+    {
+      "case_id": "wf2-v5-p02-a",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p02",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 8
+    },
+    {
+      "case_id": "wf2-v5-p02-b",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p02",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 26
+    },
+    {
+      "case_id": "wf2-v5-p03-a",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p03",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 32
+    },
+    {
+      "case_id": "wf2-v5-p03-b",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p03",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 14
+    },
+    {
+      "case_id": "wf2-v5-p04-a",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p04",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 5
+    },
+    {
+      "case_id": "wf2-v5-p04-b",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p04",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 23
+    },
+    {
+      "case_id": "wf2-v5-p05-a",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p05",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 17
+    },
+    {
+      "case_id": "wf2-v5-p05-b",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p05",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 35
+    },
+    {
+      "case_id": "wf2-v5-p06-a",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p06",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 11
+    },
+    {
+      "case_id": "wf2-v5-p06-b",
+      "workflow": "wf2",
+      "pair_id": "wf2-v5-p06",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 29
+    },
+    {
+      "case_id": "wf3-v5-p01-a",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p01",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 12
+    },
+    {
+      "case_id": "wf3-v5-p01-b",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p01",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 30
+    },
+    {
+      "case_id": "wf3-v5-p02-a",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p02",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 6
+    },
+    {
+      "case_id": "wf3-v5-p02-b",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p02",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "ordinary",
+      "pilot": false,
+      "presentation_order": 24
+    },
+    {
+      "case_id": "wf3-v5-p03-a",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p03",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 36
+    },
+    {
+      "case_id": "wf3-v5-p03-b",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p03",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 18
+    },
+    {
+      "case_id": "wf3-v5-p04-a",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p04",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 27
+    },
+    {
+      "case_id": "wf3-v5-p04-b",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p04",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "underspecified_degraded",
+      "pilot": false,
+      "presentation_order": 9
+    },
+    {
+      "case_id": "wf3-v5-p05-a",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p05",
+      "variant": "A",
+      "condition": "manual",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 3
+    },
+    {
+      "case_id": "wf3-v5-p05-b",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p05",
+      "variant": "B",
+      "condition": "agent_assisted",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 21
+    },
+    {
+      "case_id": "wf3-v5-p06-a",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p06",
+      "variant": "A",
+      "condition": "agent_assisted",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 15
+    },
+    {
+      "case_id": "wf3-v5-p06-b",
+      "workflow": "wf3",
+      "pair_id": "wf3-v5-p06",
+      "variant": "B",
+      "condition": "manual",
+      "scenario_family": "complex_safety",
+      "pilot": false,
+      "presentation_order": 33
+    }
+  ],
+  "frozen_at": null
+}

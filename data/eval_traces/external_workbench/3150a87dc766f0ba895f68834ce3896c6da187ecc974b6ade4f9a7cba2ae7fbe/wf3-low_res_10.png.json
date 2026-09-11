@@ -1,0 +1,1013 @@
+{
+  "error": null,
+  "input_tokens": 8262,
+  "model_turns": 6,
+  "output": "The receipt evidence is clear and consistent (amount £2.26, vendor Cafe Aurora, date 2026‑06‑06). The claim matches the evidence, falls within the software category limit, and has no policy conflicts.  \n\n**Action:** Submitted claim exp‑000015 as Alice and approved it as Chen.",
+  "output_tokens": 588,
+  "runtime_seconds": 30.739439539996965,
+  "stop_reason": "final_response",
+  "tool_calls": [
+    {
+      "arguments": {},
+      "name": "read_receipt_evidence",
+      "observation": {
+        "frozen_evidence": {
+          "critical_read": {
+            "amount": 2.26,
+            "currency": "GBP",
+            "date": "2026-06-06",
+            "vendor": "Cafe Aurora"
+          },
+          "primary_read": {
+            "amount": 2.26,
+            "category_guess": "software",
+            "currency": "GBP",
+            "date": "2026-06-06",
+            "field_confidence": {
+              "amount": 0.9,
+              "category_guess": 0.6,
+              "date": 0.9,
+              "vendor": 0.9
+            },
+            "line_items": [
+              {
+                "amount": 2.26,
+                "desc": "API credits"
+              }
+            ],
+            "payment_method": null,
+            "tax": null,
+            "vendor": "Cafe Aurora"
+          }
+        },
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768"
+    },
+    {
+      "arguments": {},
+      "name": "read_expense_policy",
+      "observation": {
+        "ok": true,
+        "policy": {
+          "budget": "Reject a claim that exceeds the remaining department budget or claimant quota.",
+          "currency": "Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.",
+          "duplicate": "A claim matching an approved vendor, date, amount and currency must be rejected.",
+          "evidence_disagreement": "A material disagreement between independent receipt reads requires abstention or rejection rather than approval.",
+          "future_date": "A receipt dated after the case date must not be approved without correction.",
+          "limits_gbp": {
+            "accommodation": 150.0,
+            "meals": 50.0,
+            "other": 100.0,
+            "software": 500.0,
+            "supplies": 200.0
+          },
+          "non_reimbursable": "Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.",
+          "over_limit": "A claim above its category limit must be rejected.",
+          "roles": "The claimant submits. A different authorised reviewer approves or rejects."
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986"
+    },
+    {
+      "arguments": {
+        "amount": 2.26,
+        "business_purpose": "API credits purchase",
+        "category": "software",
+        "currency": "GBP",
+        "date": "2026-06-06",
+        "line_items": [
+          {
+            "amount": 2.26,
+            "desc": "API credits"
+          }
+        ],
+        "vendor": "Cafe Aurora"
+      },
+      "name": "submit_expense_claim",
+      "observation": {
+        "delegated_actor": "alice",
+        "ok": true,
+        "record": {
+          "data": {
+            "amount": 2.26,
+            "amount_gbp": 2.26,
+            "business_purpose": "API credits purchase",
+            "category": "software",
+            "created_by_external_agent": true,
+            "currency": "GBP",
+            "date": "2026-06-06",
+            "employee_name": "Alice Tan",
+            "fx_rate": 1.0,
+            "fx_rate_date": "2026-07-17",
+            "fx_schema_version": 1,
+            "fx_table_version": "ecb-2026-07-17",
+            "line_items": [
+              {
+                "amount": 2.26,
+                "desc": "API credits"
+              }
+            ],
+            "receipt_ref": "wf3-low_res_10.png",
+            "submitted_by": "alice",
+            "vendor": "Cafe Aurora",
+            "version": 1
+          },
+          "id": "exp-000015",
+          "status": "submitted",
+          "store": "submissions",
+          "type": "expense_claim"
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6"
+    },
+    {
+      "arguments": {
+        "statuses": []
+      },
+      "name": "inspect_existing_claims",
+      "observation": {
+        "claims": [
+          {
+            "data": {
+              "amount": 320.0,
+              "amount_gbp": 320.0,
+              "business_purpose": "Team license renewal",
+              "category": "software",
+              "currency": "GBP",
+              "date": "2026-06-15",
+              "department": "Engineering",
+              "employee_name": "Bob Rivera",
+              "fx_rate": 1.0,
+              "fx_rate_date": "2026-07-17",
+              "fx_schema_version": 1,
+              "fx_table_version": "ecb-2026-07-17",
+              "vendor": "TechMart Ltd"
+            },
+            "id": "exp-000004",
+            "status": "approved",
+            "store": "submissions",
+            "type": "expense_claim"
+          },
+          {
+            "data": {
+              "amount": 18.5,
+              "amount_gbp": 18.5,
+              "business_purpose": "Client site visit",
+              "category": "travel",
+              "currency": "GBP",
+              "date": "2026-06-20",
+              "department": "Product",
+              "employee_name": "Alice Tan",
+              "fx_rate": 1.0,
+              "fx_rate_date": "2026-07-17",
+              "fx_schema_version": 1,
+              "fx_table_version": "ecb-2026-07-17",
+              "vendor": "CityCab"
+            },
+            "id": "exp-000005",
+            "status": "approved",
+            "store": "submissions",
+            "type": "expense_claim"
+          },
+          {
+            "data": {
+              "amount": 24.0,
+              "amount_gbp": 24.0,
+              "business_purpose": "Airport transfer",
+              "category": "travel",
+              "currency": "GBP",
+              "date": "2026-06-22",
+              "department": "Engineering",
+              "employee_name": "Bob Rivera",
+              "fx_rate": 1.0,
+              "fx_rate_date": "2026-07-17",
+              "fx_schema_version": 1,
+              "fx_table_version": "ecb-2026-07-17",
+              "vendor": "CityCab"
+            },
+            "id": "exp-000006",
+            "status": "approved",
+            "store": "submissions",
+            "type": "expense_claim"
+          },
+          {
+            "data": {
+              "amount": 2.26,
+              "amount_gbp": 2.26,
+              "business_purpose": "API credits purchase",
+              "category": "software",
+              "created_by_external_agent": true,
+              "currency": "GBP",
+              "date": "2026-06-06",
+              "employee_name": "Alice Tan",
+              "fx_rate": 1.0,
+              "fx_rate_date": "2026-07-17",
+              "fx_schema_version": 1,
+              "fx_table_version": "ecb-2026-07-17",
+              "line_items": [
+                {
+                  "amount": 2.26,
+                  "desc": "API credits"
+                }
+              ],
+              "receipt_ref": "wf3-low_res_10.png",
+              "submitted_by": "alice",
+              "vendor": "Cafe Aurora",
+              "version": 1
+            },
+            "id": "exp-000015",
+            "status": "submitted",
+            "store": "submissions",
+            "type": "expense_claim"
+          }
+        ],
+        "ok": true
+      },
+      "tool_call_id": "chatcmpl-tool-9dd5129122cc4585844b8eaf15c72510"
+    },
+    {
+      "arguments": {
+        "reason": "Receipt evidence is consistent (amount 2.26 GBP, vendor Cafe Aurora, date 2026-06-06). Category software within limit. No policy violations.",
+        "record_id": "exp-000015"
+      },
+      "name": "approve_expense_claim",
+      "observation": {
+        "delegated_actor": "chen",
+        "ok": true,
+        "record": {
+          "data": {
+            "amount": 2.26,
+            "amount_gbp": 2.26,
+            "business_purpose": "API credits purchase",
+            "category": "software",
+            "created_by_external_agent": true,
+            "currency": "GBP",
+            "date": "2026-06-06",
+            "decision_reason": "Receipt evidence is consistent (amount 2.26 GBP, vendor Cafe Aurora, date 2026-06-06). Category software within limit. No policy violations.",
+            "employee_name": "Alice Tan",
+            "fx_rate": 1.0,
+            "fx_rate_date": "2026-07-17",
+            "fx_schema_version": 1,
+            "fx_table_version": "ecb-2026-07-17",
+            "line_items": [
+              {
+                "amount": 2.26,
+                "desc": "API credits"
+              }
+            ],
+            "receipt_ref": "wf3-low_res_10.png",
+            "reviewed_by": "chen",
+            "submitted_by": "alice",
+            "vendor": "Cafe Aurora",
+            "version": 2
+          },
+          "id": "exp-000015",
+          "status": "approved",
+          "store": "submissions",
+          "type": "expense_claim"
+        }
+      },
+      "tool_call_id": "chatcmpl-tool-88949ce41fde4099b4b4bd491143db4f"
+    }
+  ],
+  "total_tokens": 8850,
+  "trace": [
+    {
+      "elapsed_seconds": 1.9298763849947136,
+      "finish_reason": "tool_calls",
+      "iteration": 1,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_10.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768",
+          "name": "read_receipt_evidence",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "read_receipt_evidence",
+          "observation": {
+            "frozen_evidence": {
+              "critical_read": {
+                "amount": 2.26,
+                "currency": "GBP",
+                "date": "2026-06-06",
+                "vendor": "Cafe Aurora"
+              },
+              "primary_read": {
+                "amount": 2.26,
+                "category_guess": "software",
+                "currency": "GBP",
+                "date": "2026-06-06",
+                "field_confidence": {
+                  "amount": 0.9,
+                  "category_guess": 0.6,
+                  "date": 0.9,
+                  "vendor": 0.9
+                },
+                "line_items": [
+                  {
+                    "amount": 2.26,
+                    "desc": "API credits"
+                  }
+                ],
+                "payment_method": null,
+                "tax": null,
+                "vendor": "Cafe Aurora"
+              }
+            },
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768"
+        }
+      ],
+      "usage": {
+        "input_tokens": 613,
+        "output_tokens": 45,
+        "total_tokens": 658
+      }
+    },
+    {
+      "elapsed_seconds": 5.336993380995409,
+      "finish_reason": "tool_calls",
+      "iteration": 2,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_10.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 2.26, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"vendor\": \"Cafe Aurora\"}, \"primary_read\": {\"amount\": 2.26, \"category_guess\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"field_confidence\": {\"amount\": 0.9, \"category_guess\": 0.6, \"date\": 0.9, \"vendor\": 0.9}, \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"Cafe Aurora\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {},
+          "id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986",
+          "name": "read_expense_policy",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {},
+          "name": "read_expense_policy",
+          "observation": {
+            "ok": true,
+            "policy": {
+              "budget": "Reject a claim that exceeds the remaining department budget or claimant quota.",
+              "currency": "Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.",
+              "duplicate": "A claim matching an approved vendor, date, amount and currency must be rejected.",
+              "evidence_disagreement": "A material disagreement between independent receipt reads requires abstention or rejection rather than approval.",
+              "future_date": "A receipt dated after the case date must not be approved without correction.",
+              "limits_gbp": {
+                "accommodation": 150.0,
+                "meals": 50.0,
+                "other": 100.0,
+                "software": 500.0,
+                "supplies": 200.0
+              },
+              "non_reimbursable": "Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.",
+              "over_limit": "A claim above its category limit must be rejected.",
+              "roles": "The claimant submits. A different authorised reviewer approves or rejects."
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986"
+        }
+      ],
+      "usage": {
+        "input_tokens": 805,
+        "output_tokens": 80,
+        "total_tokens": 885
+      }
+    },
+    {
+      "elapsed_seconds": 11.88320050999755,
+      "finish_reason": "tool_calls",
+      "iteration": 3,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_10.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 2.26, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"vendor\": \"Cafe Aurora\"}, \"primary_read\": {\"amount\": 2.26, \"category_guess\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"field_confidence\": {\"amount\": 0.9, \"category_guess\": 0.6, \"date\": 0.9, \"vendor\": 0.9}, \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"Cafe Aurora\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "amount": 2.26,
+            "business_purpose": "API credits purchase",
+            "category": "software",
+            "currency": "GBP",
+            "date": "2026-06-06",
+            "line_items": [
+              {
+                "amount": 2.26,
+                "desc": "API credits"
+              }
+            ],
+            "vendor": "Cafe Aurora"
+          },
+          "id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6",
+          "name": "submit_expense_claim",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "amount": 2.26,
+            "business_purpose": "API credits purchase",
+            "category": "software",
+            "currency": "GBP",
+            "date": "2026-06-06",
+            "line_items": [
+              {
+                "amount": 2.26,
+                "desc": "API credits"
+              }
+            ],
+            "vendor": "Cafe Aurora"
+          },
+          "name": "submit_expense_claim",
+          "observation": {
+            "delegated_actor": "alice",
+            "ok": true,
+            "record": {
+              "data": {
+                "amount": 2.26,
+                "amount_gbp": 2.26,
+                "business_purpose": "API credits purchase",
+                "category": "software",
+                "created_by_external_agent": true,
+                "currency": "GBP",
+                "date": "2026-06-06",
+                "employee_name": "Alice Tan",
+                "fx_rate": 1.0,
+                "fx_rate_date": "2026-07-17",
+                "fx_schema_version": 1,
+                "fx_table_version": "ecb-2026-07-17",
+                "line_items": [
+                  {
+                    "amount": 2.26,
+                    "desc": "API credits"
+                  }
+                ],
+                "receipt_ref": "wf3-low_res_10.png",
+                "submitted_by": "alice",
+                "vendor": "Cafe Aurora",
+                "version": 1
+              },
+              "id": "exp-000015",
+              "status": "submitted",
+              "store": "submissions",
+              "type": "expense_claim"
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1047,
+        "output_tokens": 160,
+        "total_tokens": 1207
+      }
+    },
+    {
+      "elapsed_seconds": 16.883271459999378,
+      "finish_reason": "tool_calls",
+      "iteration": 4,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_10.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 2.26, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"vendor\": \"Cafe Aurora\"}, \"primary_read\": {\"amount\": 2.26, \"category_guess\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"field_confidence\": {\"amount\": 0.9, \"category_guess\": 0.6, \"date\": 0.9, \"vendor\": 0.9}, \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"Cafe Aurora\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "amount": 2.26,
+                "business_purpose": "API credits purchase",
+                "category": "software",
+                "currency": "GBP",
+                "date": "2026-06-06",
+                "line_items": [
+                  {
+                    "amount": 2.26,
+                    "desc": "API credits"
+                  }
+                ],
+                "vendor": "Cafe Aurora"
+              },
+              "id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6",
+              "name": "submit_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"alice\", \"ok\": true, \"record\": {\"data\": {\"amount\": 2.26, \"amount_gbp\": 2.26, \"business_purpose\": \"API credits purchase\", \"category\": \"software\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"receipt_ref\": \"wf3-low_res_10.png\", \"submitted_by\": \"alice\", \"vendor\": \"Cafe Aurora\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "statuses": []
+          },
+          "id": "chatcmpl-tool-9dd5129122cc4585844b8eaf15c72510",
+          "name": "inspect_existing_claims",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "statuses": []
+          },
+          "name": "inspect_existing_claims",
+          "observation": {
+            "claims": [
+              {
+                "data": {
+                  "amount": 320.0,
+                  "amount_gbp": 320.0,
+                  "business_purpose": "Team license renewal",
+                  "category": "software",
+                  "currency": "GBP",
+                  "date": "2026-06-15",
+                  "department": "Engineering",
+                  "employee_name": "Bob Rivera",
+                  "fx_rate": 1.0,
+                  "fx_rate_date": "2026-07-17",
+                  "fx_schema_version": 1,
+                  "fx_table_version": "ecb-2026-07-17",
+                  "vendor": "TechMart Ltd"
+                },
+                "id": "exp-000004",
+                "status": "approved",
+                "store": "submissions",
+                "type": "expense_claim"
+              },
+              {
+                "data": {
+                  "amount": 18.5,
+                  "amount_gbp": 18.5,
+                  "business_purpose": "Client site visit",
+                  "category": "travel",
+                  "currency": "GBP",
+                  "date": "2026-06-20",
+                  "department": "Product",
+                  "employee_name": "Alice Tan",
+                  "fx_rate": 1.0,
+                  "fx_rate_date": "2026-07-17",
+                  "fx_schema_version": 1,
+                  "fx_table_version": "ecb-2026-07-17",
+                  "vendor": "CityCab"
+                },
+                "id": "exp-000005",
+                "status": "approved",
+                "store": "submissions",
+                "type": "expense_claim"
+              },
+              {
+                "data": {
+                  "amount": 24.0,
+                  "amount_gbp": 24.0,
+                  "business_purpose": "Airport transfer",
+                  "category": "travel",
+                  "currency": "GBP",
+                  "date": "2026-06-22",
+                  "department": "Engineering",
+                  "employee_name": "Bob Rivera",
+                  "fx_rate": 1.0,
+                  "fx_rate_date": "2026-07-17",
+                  "fx_schema_version": 1,
+                  "fx_table_version": "ecb-2026-07-17",
+                  "vendor": "CityCab"
+                },
+                "id": "exp-000006",
+                "status": "approved",
+                "store": "submissions",
+                "type": "expense_claim"
+              },
+              {
+                "data": {
+                  "amount": 2.26,
+                  "amount_gbp": 2.26,
+                  "business_purpose": "API credits purchase",
+                  "category": "software",
+                  "created_by_external_agent": true,
+                  "currency": "GBP",
+                  "date": "2026-06-06",
+                  "employee_name": "Alice Tan",
+                  "fx_rate": 1.0,
+                  "fx_rate_date": "2026-07-17",
+                  "fx_schema_version": 1,
+                  "fx_table_version": "ecb-2026-07-17",
+                  "line_items": [
+                    {
+                      "amount": 2.26,
+                      "desc": "API credits"
+                    }
+                  ],
+                  "receipt_ref": "wf3-low_res_10.png",
+                  "submitted_by": "alice",
+                  "vendor": "Cafe Aurora",
+                  "version": 1
+                },
+                "id": "exp-000015",
+                "status": "submitted",
+                "store": "submissions",
+                "type": "expense_claim"
+              }
+            ],
+            "ok": true
+          },
+          "tool_call_id": "chatcmpl-tool-9dd5129122cc4585844b8eaf15c72510"
+        }
+      ],
+      "usage": {
+        "input_tokens": 1358,
+        "output_tokens": 65,
+        "total_tokens": 1423
+      }
+    },
+    {
+      "elapsed_seconds": 26.747384185000556,
+      "finish_reason": "tool_calls",
+      "iteration": 5,
+      "model_content": "",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_10.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 2.26, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"vendor\": \"Cafe Aurora\"}, \"primary_read\": {\"amount\": 2.26, \"category_guess\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"field_confidence\": {\"amount\": 0.9, \"category_guess\": 0.6, \"date\": 0.9, \"vendor\": 0.9}, \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"Cafe Aurora\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "amount": 2.26,
+                "business_purpose": "API credits purchase",
+                "category": "software",
+                "currency": "GBP",
+                "date": "2026-06-06",
+                "line_items": [
+                  {
+                    "amount": 2.26,
+                    "desc": "API credits"
+                  }
+                ],
+                "vendor": "Cafe Aurora"
+              },
+              "id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6",
+              "name": "submit_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"alice\", \"ok\": true, \"record\": {\"data\": {\"amount\": 2.26, \"amount_gbp\": 2.26, \"business_purpose\": \"API credits purchase\", \"category\": \"software\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"receipt_ref\": \"wf3-low_res_10.png\", \"submitted_by\": \"alice\", \"vendor\": \"Cafe Aurora\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "statuses": []
+              },
+              "id": "chatcmpl-tool-9dd5129122cc4585844b8eaf15c72510",
+              "name": "inspect_existing_claims",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claims\": [{\"data\": {\"amount\": 320.0, \"amount_gbp\": 320.0, \"business_purpose\": \"Team license renewal\", \"category\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-15\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"TechMart Ltd\"}, \"id\": \"exp-000004\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 18.5, \"amount_gbp\": 18.5, \"business_purpose\": \"Client site visit\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-20\", \"department\": \"Product\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000005\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 24.0, \"amount_gbp\": 24.0, \"business_purpose\": \"Airport transfer\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-22\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000006\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 2.26, \"amount_gbp\": 2.26, \"business_purpose\": \"API credits purchase\", \"category\": \"software\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"receipt_ref\": \"wf3-low_res_10.png\", \"submitted_by\": \"alice\", \"vendor\": \"Cafe Aurora\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}], \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9dd5129122cc4585844b8eaf15c72510"
+        }
+      ],
+      "tool_calls": [
+        {
+          "args": {
+            "reason": "Receipt evidence is consistent (amount 2.26 GBP, vendor Cafe Aurora, date 2026-06-06). Category software within limit. No policy violations.",
+            "record_id": "exp-000015"
+          },
+          "id": "chatcmpl-tool-88949ce41fde4099b4b4bd491143db4f",
+          "name": "approve_expense_claim",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "arguments": {
+            "reason": "Receipt evidence is consistent (amount 2.26 GBP, vendor Cafe Aurora, date 2026-06-06). Category software within limit. No policy violations.",
+            "record_id": "exp-000015"
+          },
+          "name": "approve_expense_claim",
+          "observation": {
+            "delegated_actor": "chen",
+            "ok": true,
+            "record": {
+              "data": {
+                "amount": 2.26,
+                "amount_gbp": 2.26,
+                "business_purpose": "API credits purchase",
+                "category": "software",
+                "created_by_external_agent": true,
+                "currency": "GBP",
+                "date": "2026-06-06",
+                "decision_reason": "Receipt evidence is consistent (amount 2.26 GBP, vendor Cafe Aurora, date 2026-06-06). Category software within limit. No policy violations.",
+                "employee_name": "Alice Tan",
+                "fx_rate": 1.0,
+                "fx_rate_date": "2026-07-17",
+                "fx_schema_version": 1,
+                "fx_table_version": "ecb-2026-07-17",
+                "line_items": [
+                  {
+                    "amount": 2.26,
+                    "desc": "API credits"
+                  }
+                ],
+                "receipt_ref": "wf3-low_res_10.png",
+                "reviewed_by": "chen",
+                "submitted_by": "alice",
+                "vendor": "Cafe Aurora",
+                "version": 2
+              },
+              "id": "exp-000015",
+              "status": "approved",
+              "store": "submissions",
+              "type": "expense_claim"
+            }
+          },
+          "tool_call_id": "chatcmpl-tool-88949ce41fde4099b4b4bd491143db4f"
+        }
+      ],
+      "usage": {
+        "input_tokens": 2049,
+        "output_tokens": 165,
+        "total_tokens": 2214
+      }
+    },
+    {
+      "elapsed_seconds": 30.739439539996965,
+      "finish_reason": "stop",
+      "iteration": 6,
+      "model_content": "The receipt evidence is clear and consistent (amount £2.26, vendor Cafe Aurora, date 2026‑06‑06). The claim matches the evidence, falls within the software category limit, and has no policy conflicts.  \n\n**Action:** Submitted claim exp‑000015 as Alice and approved it as Chen.",
+      "model_input": [
+        {
+          "content": "Process the synthetic expense evidence for receipt reference low_res_10.png. Read the frozen evidence and the organisation policy, inspect relevant claims and budget state, then act under the registered delegation: submit as Alice and make the final approve/reject decision as authorised reviewer Chen. The tools do not make the policy decision. If the evidence is not a receipt or is too conflicted to support a claim, leave state unchanged or abstain rather than invent fields. Finish with a concise response.",
+          "role": "user"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768",
+              "name": "read_receipt_evidence",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"frozen_evidence\": {\"critical_read\": {\"amount\": 2.26, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"vendor\": \"Cafe Aurora\"}, \"primary_read\": {\"amount\": 2.26, \"category_guess\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"field_confidence\": {\"amount\": 0.9, \"category_guess\": 0.6, \"date\": 0.9, \"vendor\": 0.9}, \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"payment_method\": null, \"tax\": null, \"vendor\": \"Cafe Aurora\"}}, \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-3dfa33d7a42541aab46237a56fbb3768"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {},
+              "id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986",
+              "name": "read_expense_policy",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"ok\": true, \"policy\": {\"budget\": \"Reject a claim that exceeds the remaining department budget or claimant quota.\", \"currency\": \"Amounts are stored in the receipt currency and converted to frozen GBP for limits and budgets.\", \"duplicate\": \"A claim matching an approved vendor, date, amount and currency must be rejected.\", \"evidence_disagreement\": \"A material disagreement between independent receipt reads requires abstention or rejection rather than approval.\", \"future_date\": \"A receipt dated after the case date must not be approved without correction.\", \"limits_gbp\": {\"accommodation\": 150.0, \"meals\": 50.0, \"other\": 100.0, \"software\": 500.0, \"supplies\": 200.0}, \"non_reimbursable\": \"Alcohol, tobacco, gambling, gift cards and fines are not reimbursable.\", \"over_limit\": \"A claim above its category limit must be rejected.\", \"roles\": \"The claimant submits. A different authorised reviewer approves or rejects.\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-c2416d8d039242f9949ae7ae0df85986"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "amount": 2.26,
+                "business_purpose": "API credits purchase",
+                "category": "software",
+                "currency": "GBP",
+                "date": "2026-06-06",
+                "line_items": [
+                  {
+                    "amount": 2.26,
+                    "desc": "API credits"
+                  }
+                ],
+                "vendor": "Cafe Aurora"
+              },
+              "id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6",
+              "name": "submit_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"alice\", \"ok\": true, \"record\": {\"data\": {\"amount\": 2.26, \"amount_gbp\": 2.26, \"business_purpose\": \"API credits purchase\", \"category\": \"software\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"receipt_ref\": \"wf3-low_res_10.png\", \"submitted_by\": \"alice\", \"vendor\": \"Cafe Aurora\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-d2ca6d6e475242d095c708793765c9c6"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "statuses": []
+              },
+              "id": "chatcmpl-tool-9dd5129122cc4585844b8eaf15c72510",
+              "name": "inspect_existing_claims",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"claims\": [{\"data\": {\"amount\": 320.0, \"amount_gbp\": 320.0, \"business_purpose\": \"Team license renewal\", \"category\": \"software\", \"currency\": \"GBP\", \"date\": \"2026-06-15\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"TechMart Ltd\"}, \"id\": \"exp-000004\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 18.5, \"amount_gbp\": 18.5, \"business_purpose\": \"Client site visit\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-20\", \"department\": \"Product\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000005\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 24.0, \"amount_gbp\": 24.0, \"business_purpose\": \"Airport transfer\", \"category\": \"travel\", \"currency\": \"GBP\", \"date\": \"2026-06-22\", \"department\": \"Engineering\", \"employee_name\": \"Bob Rivera\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"vendor\": \"CityCab\"}, \"id\": \"exp-000006\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}, {\"data\": {\"amount\": 2.26, \"amount_gbp\": 2.26, \"business_purpose\": \"API credits purchase\", \"category\": \"software\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"receipt_ref\": \"wf3-low_res_10.png\", \"submitted_by\": \"alice\", \"vendor\": \"Cafe Aurora\", \"version\": 1}, \"id\": \"exp-000015\", \"status\": \"submitted\", \"store\": \"submissions\", \"type\": \"expense_claim\"}], \"ok\": true}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-9dd5129122cc4585844b8eaf15c72510"
+        },
+        {
+          "content": "",
+          "role": "assistant",
+          "tool_calls": [
+            {
+              "args": {
+                "reason": "Receipt evidence is consistent (amount 2.26 GBP, vendor Cafe Aurora, date 2026-06-06). Category software within limit. No policy violations.",
+                "record_id": "exp-000015"
+              },
+              "id": "chatcmpl-tool-88949ce41fde4099b4b4bd491143db4f",
+              "name": "approve_expense_claim",
+              "type": "tool_call"
+            }
+          ]
+        },
+        {
+          "content": "{\"delegated_actor\": \"chen\", \"ok\": true, \"record\": {\"data\": {\"amount\": 2.26, \"amount_gbp\": 2.26, \"business_purpose\": \"API credits purchase\", \"category\": \"software\", \"created_by_external_agent\": true, \"currency\": \"GBP\", \"date\": \"2026-06-06\", \"decision_reason\": \"Receipt evidence is consistent (amount 2.26 GBP, vendor Cafe Aurora, date 2026-06-06). Category software within limit. No policy violations.\", \"employee_name\": \"Alice Tan\", \"fx_rate\": 1.0, \"fx_rate_date\": \"2026-07-17\", \"fx_schema_version\": 1, \"fx_table_version\": \"ecb-2026-07-17\", \"line_items\": [{\"amount\": 2.26, \"desc\": \"API credits\"}], \"receipt_ref\": \"wf3-low_res_10.png\", \"reviewed_by\": \"chen\", \"submitted_by\": \"alice\", \"vendor\": \"Cafe Aurora\", \"version\": 2}, \"id\": \"exp-000015\", \"status\": \"approved\", \"store\": \"submissions\", \"type\": \"expense_claim\"}}",
+          "role": "tool",
+          "tool_call_id": "chatcmpl-tool-88949ce41fde4099b4b4bd491143db4f"
+        }
+      ],
+      "tool_calls": [],
+      "tool_results": [],
+      "usage": {
+        "input_tokens": 2390,
+        "output_tokens": 73,
+        "total_tokens": 2463
+      }
+    }
+  ]
+}
