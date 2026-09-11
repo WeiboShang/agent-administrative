@@ -1,4 +1,4 @@
-# Administrative Agent
+# administrative-agent
 
 > A human-in-the-loop LLM workflow system for inbox triage, conflict-aware scheduling,
 > and evidence-first expense review.
@@ -6,10 +6,10 @@
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/UI-React%2019-61DAFB?logo=react&logoColor=111)](https://react.dev/)
-[![CI](https://github.com/WeiboShang/agent-administrative/actions/workflows/ci.yml/badge.svg)](https://github.com/WeiboShang/agent-administrative/actions/workflows/ci.yml)
+[![CI](https://github.com/WeiboShang/administrative-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/WeiboShang/administrative-agent/actions/workflows/ci.yml)
 [![Data](https://img.shields.io/badge/core%20data-synthetic-7B61FF)](#safety-and-scope)
 
-Administrative Agent is a research prototype that tests a specific approach to workplace
+`administrative-agent` is a research prototype that tests a specific approach to workplace
 AI:
 
 **the model proposes, deterministic code validates, a human decides, and only then does the
@@ -107,8 +107,8 @@ scoring definitions.
 ### Run the application
 
 ```bash
-git clone https://github.com/WeiboShang/agent-administrative.git
-cd agent-administrative
+git clone https://github.com/WeiboShang/administrative-agent.git
+cd administrative-agent
 
 uv venv --python 3.11
 uv pip install --python .venv/bin/python -r requirements.txt

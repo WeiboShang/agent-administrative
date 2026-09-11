@@ -3,7 +3,7 @@
 Drop receipt images here to smoke-test the WF3 vision pipeline, then run:
 
 ```bash
-cd agent-administrative
+cd administrative-agent
 .venv/bin/python -m backend.workflows.run_expense_demo data/receipts/<your_file>.jpg "Alice Tan"
 ```
 

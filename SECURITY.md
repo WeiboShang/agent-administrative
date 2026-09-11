@@ -2,7 +2,7 @@
 
 ## Project status
 
-Administrative Agent is a research prototype. It is not a production service and has no
+`administrative-agent` is a research prototype. It is not a production service and has no
 supported production release. Do not process real employee, customer, calendar, or financial
 data with it.
 

@@ -9,7 +9,7 @@ from .routers.expense import router as expense_router
 from .routers.inbox import router as inbox_router
 from .routers.schedule import router as schedule_router
 
-app = FastAPI(title="Administrative Agent", version="0.1.0")
+app = FastAPI(title="administrative-agent", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,

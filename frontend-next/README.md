@@ -1,4 +1,4 @@
-# Administrative Agent frontend
+# administrative-agent frontend
 
 The only supported UI is this React 19 + TypeScript + Vite SPA. FastAPI serves the committed
 production build from `dist/`; there is no legacy frontend or runtime fallback.
