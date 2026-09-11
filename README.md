@@ -246,6 +246,6 @@ images and meeting transcripts are downloaded at run time and excluded from Git.
 
 ## Licence
 
-No project-wide open-source licence has been selected yet. Until a licence file is added,
-copyright law reserves reuse rights to the author even if this repository is publicly
-visible.
+This project is released under the [MIT License](LICENSE). Third-party datasets and the
+WorkBench-derived comparison retain their own licences and attribution requirements; see
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
